@@ -1,0 +1,208 @@
+/* NAVBAR */
+.nav {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: #3A4750;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  flex-wrap: wrap;
+}
+
+.nav .logo {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #EA9216;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.nav-buttons button {
+  background-color: #EA9216;
+  color: #fff;
+  border: none;
+  margin: 0 0.25rem;
+  padding: 0.5rem 0.75rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.nav-buttons button:hover {
+  background-color: #d17f0f;
+  transform: translateY(-2px);
+}
+
+/* ACCOUNT DROPDOWN */
+.acc-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.acc {
+  background-color: #EA9216;
+  color: #fff;
+  border: none;
+  margin: 0 0.25rem;
+  padding: 0.5rem 0.75rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.acc:hover {
+  background-color: #d17f0f;
+  transform: translateY(-2px);
+}
+
+.acc-dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: #ffffff;
+  width: 160px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  padding: 0.5rem 0;
+  z-index: 2000;
+  animation: fadeIn 0.15s ease-out;
+}
+
+.dropdown-btn {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 500;
+  cursor: pointer;
+  color: #3A4750;
+  text-decoration: none;
+  display: block;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-btn:hover {
+  background-color: #EA9216;
+  color: #fff;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* CATEGORIES */
+.categories-right {
+  position: sticky;
+  top: 60px; 
+  background-color: #F5F5F5;
+  padding: 0.5rem 1rem;
+  border-radius: 0 0 8px 8px;
+  width: 100%;
+  z-index: 900;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.categories-right ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem; 
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.categories-right ul li button {
+  background-color: #f5f5f5;
+  color: #3a4750;
+  border: none;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s, transform 0.2s;
+  white-space: nowrap;
+}
+
+.categories-right ul li button:hover {
+  background-color: #EA9216;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.categories-right ul li button.active-category {
+  background-color: #EA9216;
+  color: #fff;
+}
+
+/* MAIN CONTENT */
+.main {
+  padding: 1rem;
+  overflow-x: hidden; 
+}
+
+.error {
+  color: red;
+}
+
+/* CART BUTTON */
+.cart {
+  background-color: #EA9216;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.cart:hover {
+  background-color: #d17f0f;
+  transform: translateY(-2px);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .nav-buttons {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.25rem;
+  }
+
+  .categories-right ul {
+    gap: 0.25rem;
+  }
+
+  .categories-right ul li button {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.85rem;
+  }
+
+  .acc-dropdown {
+    width: 140px;
+  }
+}
