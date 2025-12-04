@@ -4,23 +4,27 @@ import "./App.css";
 import AddProductForm from "./components/addproduct";
 import SignUp from "./components/Auth/signup";
 import SignIn from "./components/Auth/signin";
-import AuthProvider from "./components/context/authcontext";
+import AuthProvider from "./context/authcontext";
 import HomePage from "./components/home";
-import { CartContext } from "./components/context/cartContext";
+import { CartProvider } from "./context/cartContext";
+import CartList from "./components/cart";
+import Orders from "./components/orders";
 
 const App = () => {
   return (
     <AuthProvider>
-      <CartContext>
+      <CartProvider>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/add" element={<AddProductForm />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
+            <Route path="/cart" element={<CartList />} />
+            <Route path="/orders" element={<Orders />} />
           </Routes>
         </BrowserRouter>
-      </CartContext>
+      </CartProvider>
     </AuthProvider>
   );
 };

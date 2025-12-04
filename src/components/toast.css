@@ -1,0 +1,31 @@
+/* toast.css */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+
+  background-color: #3a4750;         /* Dark base */
+  color: #ffffff;                    /* White text */
+  padding: 12px 20px;
+  border-radius: 10px;
+
+  font-weight: bold;
+  font-size: 15px;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+
+  animation: fadeIn 0.3s ease-out, fadeOut 0.3s ease-in 1.7s forwards;
+
+  border-left: 4px solid #ea9216;    /* Accent strip */
+  z-index: 9999;
+}
+
+/* Animation for smooth appearance */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; transform: translateY(-10px); }
+}

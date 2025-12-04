@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./signup.css";
 
 export default function SignUp() {
   const [form, setForm] = useState({
@@ -24,7 +25,6 @@ export default function SignUp() {
     setError("");
     setSuccess("");
 
-    // Check if passwords match
     if (form.password !== form.confirmPassword) {
       setError("Passwords do not match!");
       return;
@@ -33,10 +33,7 @@ export default function SignUp() {
     try {
       const response = await fetch("http://localhost:5000/api/signup", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        // Exclude confirmPassword before sending to backend
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           firstName: form.firstName,
           lastName: form.lastName,
@@ -71,26 +68,13 @@ export default function SignUp() {
   };
 
   return (
-    <div
-      style={{
-        maxWidth: 420,
-        margin: "50px auto",
-        padding: 20,
-        border: "1px solid #ccc",
-        borderRadius: 8,
-      }}
-    >
-      <h2 style={{ textAlign: "center" }}>Create Account</h2>
+    <div className="signup-container">
+      <h2 className="signup-title">Create Account</h2>
 
-      {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
-      {success && (
-        <p style={{ color: "green", textAlign: "center" }}>{success}</p>
-      )}
+      {error && <p className="signup-error">{error}</p>}
+      {success && <p className="signup-success">{success}</p>}
 
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: "flex", flexDirection: "column", gap: "10px" }}
-      >
+      <form className="signup-form" onSubmit={handleSubmit}>
         <input
           name="firstName"
           placeholder="First Name"
@@ -154,22 +138,10 @@ export default function SignUp() {
           onChange={handleChange}
           required
         />
-        <button
-          type="submit"
-          style={{
-            padding: "10px",
-            backgroundColor: "#3a4750",
-            color: "#fff",
-            border: "none",
-            borderRadius: 4,
-            cursor: "pointer",
-          }}
-        >
-          Sign Up
-        </button>
+        <button type="submit">Sign Up</button>
       </form>
 
-      <p style={{ textAlign: "center", marginTop: 10 }}>
+      <p className="signup-footer">
         Already have an account? <a href="/signin">Sign In</a>
       </p>
     </div>

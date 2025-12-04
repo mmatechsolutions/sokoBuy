@@ -1,0 +1,90 @@
+/* orders.css */
+.orders-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px;
+  font-family: Arial, sans-serif;
+}
+
+.orders-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #3a4750;
+  margin-bottom: 20px;
+}
+
+.orders-empty {
+  text-align: center;
+  font-size: 18px;
+  color: #ea9216;
+  font-weight: bold;
+  margin-top: 50px;
+}
+
+.order-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.order-card {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  transition: transform 0.2s;
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #3a4750;
+}
+
+.order-total {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #ea9216;
+}
+
+.order-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.order-item:last-child {
+  border-bottom: none;
+}
+
+.item-name {
+  font-weight: 500;
+  color: #3a4750;
+}
+
+.item-price {
+  font-weight: bold;
+  color: #313841;
+}
+
+/* RESPONSIVE GRID */
+@media (min-width: 768px) {
+  .order-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+}

@@ -1,7 +1,8 @@
 import "./home.css";
 import React, { useState, useEffect, useContext, useRef } from "react";
 import CardList from "./listCard";
-import { AuthContext } from "./context/authcontext";
+import { AuthContext } from "../context/authcontext";
+import { Link } from "react-router-dom";
 
 const categories = [
   "All",
@@ -124,9 +125,11 @@ const HomePage = () => {
             )}
           </div>
 
-          <button type="button" className="cart">
-            Cart
-          </button>
+          <Link to="/cart">
+            <button type="button" className="cart">
+              Cart
+            </button>
+          </Link>
         </div>
       </div>
 

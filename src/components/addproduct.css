@@ -1,48 +1,84 @@
-.add-product-form {
+.add-product-container {
   max-width: 500px;
-  margin: 2rem auto;
-  padding: 1.5rem;
-  background-color: #f5f5f5;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  margin: 50px auto;
+  padding: 25px 20px;
+  background-color: #f5f5f5; /* neutral background */
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-family: "Arial", sans-serif;
 }
 
-.add-product-form h2 {
+.form-title {
   text-align: center;
-  margin-bottom: 1rem;
-  color: #3a4750;
+  font-size: 26px;
+  color: #1a1a1a;
+  margin-bottom: 20px;
+}
+
+.add-product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-group label {
-  display: block;
-  margin-bottom: 0.25rem;
-  font-weight: 600;
+  margin-bottom: 5px;
+  font-weight: bold;
   color: #3a4750;
 }
 
-.form-group input {
-  width: 100%;
-  padding: 0.5rem;
-  border-radius: 6px;
+.form-group input,
+.form-group textarea {
+  padding: 10px;
   border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  outline: none;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #3a4750;
+  box-shadow: 0 0 5px rgba(58, 71, 80, 0.4);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.image-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.preview-img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-top: 8px;
 }
 
 .submit-btn {
-  width: 100%;
-  padding: 0.5rem;
-  background-color: #EA9216;
-  color: white;
+  padding: 12px;
+  background-color: #3a4750;
+  color: #fff;
   border: none;
   border-radius: 6px;
-  font-weight: 600;
+  font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background-color 0.2s ease;
 }
 
 .submit-btn:hover {
-  background-color: #d17f0f;
+  background-color: #313841;
 }

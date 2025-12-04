@@ -10,7 +10,7 @@ const AddProductForm = () => {
   });
 
   const [imageFile, setImageFile] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null); // NEW
+  const [imagePreview, setImagePreview] = useState(null);
 
   const handleChange = (e) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
@@ -19,11 +19,7 @@ const AddProductForm = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setImageFile(file);
-
-    // Create preview
-    if (file) {
-      setImagePreview(URL.createObjectURL(file));
-    }
+    if (file) setImagePreview(URL.createObjectURL(file));
   };
 
   const handleSubmit = async (e) => {
@@ -64,10 +60,9 @@ const AddProductForm = () => {
   };
 
   return (
-    <div className="add-product-form">
-      <h2>Add New Product</h2>
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
-        {/* Inputs */}
+    <div className="add-product-container">
+      <h2 className="form-title">Add New Product</h2>
+      <form onSubmit={handleSubmit} className="add-product-form">
         <div className="form-group">
           <label>Name</label>
           <input
@@ -115,27 +110,15 @@ const AddProductForm = () => {
           />
         </div>
 
-        {/* Image Upload */}
         <div className="form-group">
           <label>Image</label>
           <input type="file" onChange={handleFileChange} required />
         </div>
 
-        {/* Image Preview */}
         {imagePreview && (
           <div className="image-preview">
-            <p>Image Preview:</p>
-            <img
-              src={imagePreview}
-              alt="Preview"
-              style={{
-                width: "150px",
-                height: "150px",
-                objectFit: "cover",
-                borderRadius: "8px",
-                border: "1px solid #ccc",
-              }}
-            />
+            <p>Preview:</p>
+            <img src={imagePreview} alt="Preview" className="preview-img" />
           </div>
         )}
 
