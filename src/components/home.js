@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import CardList from "./listCard";
 import { AuthContext } from "../context/authcontext";
 import { Link } from "react-router-dom";
+import { CartContext } from "../context/cartContext";
 
 const categories = [
   "All",
@@ -20,6 +21,7 @@ const HomePage = () => {
   const [error, setError] = useState(null);
 
   const { user, signout } = useContext(AuthContext);
+  const { cart } = useContext(CartContext);
 
   const [menuOpen, setMenuOpen] = useState(false);
   const accRef = useRef(null);
@@ -79,6 +81,11 @@ const HomePage = () => {
         <h1 className="logo">Soko Buy</h1>
 
         <div className="nav-buttons">
+          <Link to="/dashboard">
+            <button type="button" className="search-btn">
+              Admin
+            </button>
+          </Link>
           <button type="button" className="search-btn">
             Search
           </button>
@@ -128,6 +135,9 @@ const HomePage = () => {
           <Link to="/cart">
             <button type="button" className="cart">
               Cart
+              {cart.length > 0 && (
+                <span className="cart-badge">{cart.length}</span>
+              )}
             </button>
           </Link>
         </div>

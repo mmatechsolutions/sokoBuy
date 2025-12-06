@@ -9,6 +9,8 @@ import HomePage from "./components/home";
 import { CartProvider } from "./context/cartContext";
 import CartList from "./components/cart";
 import Orders from "./components/orders";
+import Dashboard from "./components/Admin/dashboard";
+import AdminOrders from "./components/Admin/adminOrders";
 
 const App = () => {
   return (
@@ -22,6 +24,8 @@ const App = () => {
             <Route path="/signin" element={<SignIn />} />
             <Route path="/cart" element={<CartList />} />
             <Route path="/orders" element={<Orders />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/admin/orders" element={<AdminOrders />} />
           </Routes>
         </BrowserRouter>
       </CartProvider>
