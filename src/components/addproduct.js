@@ -38,10 +38,13 @@ const AddProductForm = () => {
       formData.append("description", product.description);
       formData.append("image", imageFile);
 
-      const response = await fetch("http://localhost:5000/api/products", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/products`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       const data = await response.json();
 

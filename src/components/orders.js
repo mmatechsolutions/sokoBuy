@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import { AuthContext } from "../context/authcontext";
 import "./orders.css";
 
@@ -9,22 +9,11 @@ export default function Orders() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    if (!token) {
-      setError("You must be logged in to view your orders.");
-      setLoading(false);
-      return;
-    }
+  const fetchOrders = useCallback(async () => {
+    if (!token) return;
 
-    fetchOrders();
-  }, [token]);
-
-  // ================================
-  // FETCH ORDERS
-  // ================================
-  const fetchOrders = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/orders", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/orders`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -43,46 +32,35 @@ export default function Orders() {
       setError(err.message);
       setLoading(false);
     }
-  };
+  }, [token]);
 
-  // ================================
-  // RENDER STATES
-  // ================================
+  useEffect(() => {
+    fetchOrders();
+  }, [fetchOrders]);
+
   if (loading) return <p className="orders-loading">Loading orders...</p>;
   if (error) return <p className="orders-error">{error}</p>;
-
-  if (orders.length === 0) {
+  if (orders.length === 0)
     return <p className="orders-empty">You have no orders yet.</p>;
-  }
 
-  // ================================
-  // MAIN VIEW
-  // ================================
   return (
     <div className="orders-wrapper">
       <h2 className="orders-title">Your Orders</h2>
-
       {orders.map((order) => (
         <div key={order._id} className="order-card">
-          {/* HEADER */}
           <div className="order-header">
             <span className="order-id">Order: {order._id.slice(-6)}</span>
             <span className="order-date">
               {new Date(order.createdAt).toLocaleString()}
             </span>
           </div>
-
-          {/* STATUS */}
           <p className={`order-status status-${order.status}`}>
             Status: {order.status.toUpperCase()}
           </p>
-
-          {/* TOTAL */}
           <p className="order-total">
             Total: KES {order.total.toLocaleString()}
           </p>
 
-          {/* ITEMS */}
           <h4 className="items-title">Items</h4>
           <ul className="order-items">
             {order.items.map((item, i) => (
@@ -95,7 +73,6 @@ export default function Orders() {
             ))}
           </ul>
 
-          {/* SHIPPING */}
           {order.shipping && order.shipping.address && (
             <div className="shipping-section">
               <h4>Shipping</h4>
@@ -111,7 +88,6 @@ export default function Orders() {
             </div>
           )}
 
-          {/* STATUS HISTORY */}
           {order.statusHistory && order.statusHistory.length > 0 && (
             <div className="history-section">
               <h4>Status History</h4>
@@ -119,7 +95,7 @@ export default function Orders() {
                 {order.statusHistory.map((h, i) => (
                   <li key={i} className="history-item">
                     <b>{h.status.toUpperCase()}</b> –{" "}
-                    {h.message || "No message"}
+                    {h.message || "No message"}{" "}
                     <span className="history-date">
                       ({new Date(h.updatedAt).toLocaleString()})
                     </span>

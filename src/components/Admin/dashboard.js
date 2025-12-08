@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 import { AuthContext } from "../../context/authcontext";
 import { Line, Pie, Bar } from "react-chartjs-2";
 import {
@@ -38,9 +38,12 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const fetchOrders = async () => {
+  // -------------------------------
+  // FETCH FUNCTIONS
+  // -------------------------------
+  const fetchOrders = useCallback(async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/orders", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/orders`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!res.ok) return signout();
@@ -53,12 +56,12 @@ export default function Dashboard() {
     } catch (err) {
       console.error("Error fetching orders:", err);
     }
-  };
+  }, [token, signout]);
 
-  const fetchDailySales = async () => {
+  const fetchDailySales = useCallback(async () => {
     try {
       const res = await fetch(
-        "http://localhost:5000/api/admin/stats/daily-sales",
+        `${process.env.REACT_APP_API_URL}/api/admin/stats/daily-sales`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -70,12 +73,12 @@ export default function Dashboard() {
       console.error("Error fetching daily sales:", err);
       setDailySales([]);
     }
-  };
+  }, [token]);
 
-  const fetchStatusCounts = async () => {
+  const fetchStatusCounts = useCallback(async () => {
     try {
       const res = await fetch(
-        "http://localhost:5000/api/admin/stats/status-counts",
+        `${process.env.REACT_APP_API_URL}/api/admin/stats/status-counts`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -87,12 +90,12 @@ export default function Dashboard() {
       console.error("Error fetching status counts:", err);
       setStatusCounts([]);
     }
-  };
+  }, [token]);
 
-  const fetchBestProducts = async () => {
+  const fetchBestProducts = useCallback(async () => {
     try {
       const res = await fetch(
-        "http://localhost:5000/api/admin/stats/best-products",
+        `${process.env.REACT_APP_API_URL}/api/admin/stats/best-products`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -104,13 +107,16 @@ export default function Dashboard() {
       console.error("Error fetching best products:", err);
       setBestProducts([]);
     }
-  };
+  }, [token]);
 
-  const fetchSummary = async () => {
+  const fetchSummary = useCallback(async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/admin/stats/summary", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/admin/stats/summary`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       if (!res.ok) throw new Error(`HTTP error ${res.status}`);
       const data = await res.json();
       setSummary(data || null);
@@ -118,9 +124,9 @@ export default function Dashboard() {
       console.error("Failed to fetch summary stats", err);
       setSummary(null);
     }
-  };
+  }, [token]);
 
-  const fetchAllData = async () => {
+  const fetchAllData = useCallback(async () => {
     try {
       setLoading(true);
       await Promise.all([
@@ -136,19 +142,27 @@ export default function Dashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [
+    fetchOrders,
+    fetchDailySales,
+    fetchStatusCounts,
+    fetchBestProducts,
+    fetchSummary,
+  ]);
 
+  // -------------------------------
+  // EFFECT
+  // -------------------------------
   useEffect(() => {
     if (!token) return;
-    fetchAllData(); // initial fetch
-
-    const interval = setInterval(() => {
-      fetchAllData(); // refresh every 30 seconds
-    }, 30000);
-
+    fetchAllData();
+    const interval = setInterval(fetchAllData, 30000);
     return () => clearInterval(interval);
-  }, [token]);
+  }, [token, fetchAllData]);
 
+  // -------------------------------
+  // CHART DATA
+  // -------------------------------
   const dailySalesLabels = dailySales.map(
     (d) => `${d._id?.day || 0}/${d._id?.month || 0}`
   );
@@ -225,6 +239,9 @@ export default function Dashboard() {
             </a>
           </li>
           <li>
+            <a href="/add">Add Product</a>
+          </li>
+          <li>
             <a href="/settings">⚙️ Settings</a>
           </li>
         </ul>
@@ -232,7 +249,6 @@ export default function Dashboard() {
 
       <main className="main-content">
         <h2 className="desktop-title">Analytics Dashboard</h2>
-
         {summary && (
           <div className="summary-grid">
             <div className="summary-card">

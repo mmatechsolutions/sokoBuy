@@ -1,169 +1,315 @@
-/* orders.css */
-.orders-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 15px;
-  font-family: Arial, sans-serif;
+/* =======================================================
+ * CSS File: orders.css
+ * Component: Orders (React User Order History List)
+ * Professional Color Palette: Minimalist & Clean
+ * - Primary (Text/Dark Accent): #333d47 (Dark Charcoal)
+ * - Accent (Highlight): #007bff (Standard Blue)
+ * - Background: #f4f7f9 (Light Cool Gray)
+ * - Card Background: #ffffff (White)
+ * ======================================================= */
+
+/* -------------------------------------------------------
+ * 1. GLOBAL STYLES
+ * ------------------------------------------------------- */
+:root {
+  --color-primary: #333d47; /* Dark Charcoal for text */
+  --color-accent: #007bff; /* Standard Blue for highlights */
+  --color-background: #f4f7f9; /* Light Cool Gray page background */
+  --color-card-bg: #ffffff; /* White card background */
+  --color-text-secondary: #6c757d; /* Muted gray text */
+
+  /* Status Colors */
+  --status-pending: #ffc107; /* Yellow */
+  --status-processing: #17a2b8; /* Cyan/Info */
+  --status-shipped: #6f42c1; /* Purple */
+  --status-delivered: #28a745; /* Green/Success */
+  --status-cancelled: #dc3545; /* Red/Danger */
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-primary);
+  line-height: 1.5;
+}
+
+/* Headings */
 .orders-title {
-  font-size: 24px;
-  font-weight: bold;
-  color: #3a4750;
-  margin-bottom: 20px;
-}
-
-.orders-empty {
+  font-size: 2.2em;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 30px;
   text-align: center;
-  font-size: 18px;
-  color: #ea9216;
-  font-weight: bold;
-  margin-top: 50px;
 }
 
-.order-list {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+h4 {
+  font-size: 1.1em;
+  color: var(--color-accent);
+  margin-top: 15px;
+  margin-bottom: 8px;
+  border-bottom: 1px dotted #e9ecef;
+  padding-bottom: 5px;
 }
 
+/* -------------------------------------------------------
+ * 2. LAYOUT STYLING (WRAPPER & CARDS)
+ * ------------------------------------------------------- */
+
+.orders-wrapper {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  /* Initial fade-in effect */
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* --- Order Card --- */
 .order-card {
-  background-color: #ffffff;
-  padding: 15px;
+  background-color: var(--color-card-bg);
+  padding: 20px;
+  margin-bottom: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  transition: transform 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-left: 5px solid var(--color-accent); /* Visual highlight */
+  transition: transform 0.3s ease-in-out;
 }
 
+/* Card hover animation: subtle lift */
 .order-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
 .order-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 10px;
-  font-weight: bold;
-  color: #3a4750;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.order-id {
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.order-date {
+  font-size: 0.85em;
+  color: var(--color-text-secondary);
 }
 
 .order-total {
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #ea9216;
+  font-size: 1.3em;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 15px;
 }
 
+/* --- Items List --- */
 .order-items {
   list-style: none;
-  padding: 0;
-  margin: 0;
+  padding-left: 0;
 }
 
 .order-item {
   display: flex;
   justify-content: space-between;
-  padding: 6px 0;
-  border-bottom: 1px solid #eee;
-}
-
-.order-item:last-child {
-  border-bottom: none;
+  padding: 5px 0;
+  font-size: 0.95em;
+  border-bottom: 1px dashed #f1f1f1;
 }
 
 .item-name {
   font-weight: 500;
-  color: #3a4750;
 }
 
 .item-price {
-  font-weight: bold;
-  color: #313841;
+  color: var(--color-text-secondary);
+  font-weight: 400;
 }
 
-/* RESPONSIVE GRID */
-@media (min-width: 768px) {
-  .order-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-  }
-}
-.orders-wrapper {
-  width: 90%;
-  max-width: 900px;
-  margin: auto;
-  padding: 15px;
-}
-
-.orders-title {
-  margin-bottom: 20px;
-}
-
-.order-card {
-  background: #fff;
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 25px;
-  border: 1px solid #ddd;
-}
-
-.order-header {
-  display: flex;
-  justify-content: space-between;
-}
-
-.order-status {
-  margin: 10px 0;
-  font-weight: bold;
-}
-
-.status-pending {
-  color: gray;
-}
-.status-processing {
-  color: #ea9216;
-}
-.status-shipped {
-  color: blue;
-}
-.status-delivered {
-  color: green;
-}
-.status-cancelled {
-  color: red;
-}
-
-.order-items {
-  list-style: none;
-  padding: 0;
-}
-
-.order-item {
-  display: flex;
-  justify-content: space-between;
-  margin: 4px 0;
-}
-
+/* --- Sections --- */
 .shipping-section,
 .history-section {
-  padding: 10px;
-  background: #f5f5f5;
-  margin-top: 10px;
-  border-radius: 6px;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #f8f9fa; /* Lighter background for details */
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+}
+
+.shipping-section p,
+.history-item {
+    font-size: 0.9em;
+    margin-bottom: 5px;
 }
 
 .history-item {
-  margin-bottom: 5px;
+    color: var(--color-primary);
 }
 
 .history-date {
-  font-size: 12px;
-  color: #777;
+    font-size: 0.8em;
+    color: var(--color-text-secondary);
+    font-style: italic;
 }
+
+/* -------------------------------------------------------
+ * 3. STATUS INDICATORS
+ * ------------------------------------------------------- */
+
+.order-status {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  font-weight: 700;
+  color: var(--color-card-bg);
+  font-size: 0.9em;
+  /* Fade-in animation for status */
+  animation: statusFade 0.4s ease-out;
+}
+
+.status-pending {
+  background-color: var(--status-pending);
+}
+.status-processing {
+  background-color: var(--status-processing);
+}
+.status-shipped {
+  background-color: var(--status-shipped);
+}
+.status-delivered {
+  background-color: var(--status-delivered);
+}
+.status-cancelled {
+  background-color: var(--status-cancelled);
+}
+
+
+/* -------------------------------------------------------
+ * 4. STATES (LOADING, ERROR, EMPTY)
+ * ------------------------------------------------------- */
 
 .orders-loading,
 .orders-error,
 .orders-empty {
   text-align: center;
-  margin-top: 40px;
+  font-size: 1.4em;
+  padding: 50px 0;
+  margin-top: 50px;
+  border-radius: 8px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.orders-loading {
+  color: var(--color-accent);
+  /* Pulse animation for loading text */
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.orders-error {
+  color: var(--status-cancelled);
+  background-color: rgba(220, 53, 69, 0.1);
+  border: 1px solid var(--status-cancelled);
+}
+
+.orders-empty {
+  color: var(--color-text-secondary);
+  border: 2px dashed #ced4da;
+  font-style: italic;
+}
+
+
+/* -------------------------------------------------------
+ * 5. ANIMATIONS (KEYFRAMES)
+ * ------------------------------------------------------- */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes statusFade {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* -------------------------------------------------------
+ * 6. RESPONSIVENESS (MEDIA QUERIES)
+ * ------------------------------------------------------- */
+
+/* --- Tablet (up to 768px) --- */
+@media (max-width: 768px) {
+  .orders-wrapper {
+    max-width: 95%;
+    padding: 10px;
+  }
+
+  .orders-title {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+  }
+}
+
+/* --- Mobile (up to 480px) --- */
+@media (max-width: 480px) {
+  .order-card {
+    padding: 15px;
+    border-left-width: 3px;
+  }
+
+  .order-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .order-date {
+    margin-top: 5px;
+  }
+
+  .order-total {
+    font-size: 1.1em;
+  }
+  
+  .order-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .item-price {
+    margin-top: 2px;
+    font-size: 0.85em;
+  }
 }

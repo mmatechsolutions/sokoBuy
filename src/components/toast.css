@@ -1,31 +1,117 @@
-/* toast.css */
+/* =======================================================
+ * CSS File: toast.css
+ * Component: Toast (React Notification Component)
+ * Professional Color Palette: Minimalist Success
+ * - Background: #2ecc71 (Bright Green/Success)
+ * - Text Color: #ffffff (White)
+ * ======================================================= */
+
+/* -------------------------------------------------------
+ * 1. TOAST LAYOUT AND POSITIONING
+ * ------------------------------------------------------- */
+
 .toast {
+  /* Fixed positioning to keep the toast visible regardless of scroll */
   position: fixed;
-  top: 20px;
+  bottom: 20px;
   right: 20px;
+  z-index: 2000; /* Ensure it floats above most other content */
 
-  background-color: #3a4750;         /* Dark base */
-  color: #ffffff;                    /* White text */
+  /* Appearance */
+  background-color: #2ecc71; /* Success Green */
+  color: #ffffff; /* White text */
   padding: 12px 20px;
-  border-radius: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 
-  font-weight: bold;
-  font-size: 15px;
+  /* Typography */
+  font-family: 'Inter', sans-serif;
+  font-size: 1em;
+  font-weight: 500;
+  text-align: center;
+  
+  /* Initial state for animation */
+  opacity: 0;
+  transform: translateY(100%);
 
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-
-  animation: fadeIn 0.3s ease-out, fadeOut 0.3s ease-in 1.7s forwards;
-
-  border-left: 4px solid #ea9216;    /* Accent strip */
-  z-index: 9999;
+  /* Animation control */
+  animation: 
+    slideUp 0.5s ease-out forwards, /* Slide in from bottom */
+    fadeOut 0.5s ease-in 1.5s forwards; /* Fade out after duration (2s - 0.5s animation = 1.5s delay) */
 }
 
-/* Animation for smooth appearance */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+/* -------------------------------------------------------
+ * 2. ANIMATIONS (SLIDE IN, FADE OUT)
+ * ------------------------------------------------------- */
+
+/* Animation for the toast sliding up and fading in */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
+/* Animation for fading out the toast before it's removed by the timer */
 @keyframes fadeOut {
-  to { opacity: 0; transform: translateY(-10px); }
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    /* Translate down slightly as it fades for a subtle dismissal effect */
+    transform: translateY(10px); 
+  }
+}
+
+/* -------------------------------------------------------
+ * 3. RESPONSIVENESS
+ * ------------------------------------------------------- */
+
+/* Mobile devices: move toast to the center bottom */
+@media (max-width: 600px) {
+  .toast {
+    bottom: 15px;
+    left: 50%;
+    right: auto;
+    width: 90%; /* Take up most of the screen width */
+    max-width: 350px;
+    transform: translateX(-50%) translateY(100%); /* Center horizontally, position off-screen vertically */
+    padding: 10px 15px;
+    font-size: 0.9em;
+
+    /* Adjust slideUp animation to account for translateX */
+    animation: 
+        slideUpMobile 0.5s ease-out forwards,
+        fadeOutMobile 0.5s ease-in 1.5s forwards; 
+  }
+  
+  /* Mobile specific slide-up animation to maintain center positioning */
+  @keyframes slideUpMobile {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) translateY(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+
+  /* Mobile specific fade-out animation */
+  @keyframes fadeOutMobile {
+    from {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(-50%) translateY(10px);
+    }
+  }
 }

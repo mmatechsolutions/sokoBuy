@@ -1,84 +1,260 @@
-.add-product-container {
-  max-width: 500px;
-  margin: 50px auto;
-  padding: 25px 20px;
-  background-color: #f5f5f5; /* neutral background */
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  font-family: "Arial", sans-serif;
+/* =======================================================
+ * CSS File: addproduct.css
+ * Component: AddProductForm (React Form Component)
+ * Professional Color Palette: Forest Green & Gold Accent
+ * - Primary (Text/Dark Accent): #354a3a (Dark Green/Forest)
+ * - Accent (Highlight/Button): #cc8e35 (Warm Gold/Bronze)
+ * - Background: #f2f7f2 (Very Light Green/Gray)
+ * - Form Background: #ffffff (White)
+ * ======================================================= */
+
+/* -------------------------------------------------------
+ * 1. GLOBAL STYLES
+ * ------------------------------------------------------- */
+:root {
+  --color-primary: #354a3a; /* Dark Forest Green for text */
+  --color-accent: #cc8e35; /* Warm Gold/Bronze for highlights */
+  --color-background: #f2f7f2; /* Light Page Background */
+  --color-form-bg: #ffffff; /* White Form Card Background */
+  --color-input-border: #dcdcdc; /* Light border color */
+  --color-success: #4caf50; /* Green for success */
+  --color-error: #f44336; /* Red for error */
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-primary);
+  line-height: 1.6;
+}
+
+/* Headings */
 .form-title {
+  color: var(--color-primary);
+  margin-bottom: 25px;
+  font-weight: 700;
+  font-size: 2em;
   text-align: center;
-  font-size: 26px;
-  color: #1a1a1a;
-  margin-bottom: 20px;
+  border-bottom: 3px solid var(--color-accent);
+  padding-bottom: 10px;
+}
+
+/* -------------------------------------------------------
+ * 2. LAYOUT STYLING (WRAPPER, FORM)
+ * ------------------------------------------------------- */
+
+.add-product-container {
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 30px;
+  /* Apply card styling to the wrapper */
+  background-color: var(--color-form-bg);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  /* Initial fade-in effect for the form */
+  animation: fadeIn 0.6s ease-out;
 }
 
 .add-product-form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
 }
 
+/* --- Form Group --- */
 .form-group {
   display: flex;
   flex-direction: column;
 }
 
 .form-group label {
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #3a4750;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--color-primary);
+  font-size: 0.95em;
 }
 
-.form-group input,
-.form-group textarea {
-  padding: 10px;
-  border: 1px solid #ccc;
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group textarea,
+.form-group input[type="file"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--color-input-border);
   border-radius: 6px;
-  font-size: 15px;
-  outline: none;
-  transition: border 0.2s ease, box-shadow 0.2s ease;
+  font-size: 1em;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-  border-color: #3a4750;
-  box-shadow: 0 0 5px rgba(58, 71, 80, 0.4);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 5px rgba(204, 142, 53, 0.5);
+  outline: none;
 }
 
-textarea {
+.form-group textarea {
   resize: vertical;
-  min-height: 80px;
+  min-height: 100px;
 }
+
+/* Style file input for better appearance */
+.form-group input[type="file"] {
+  padding: 8px;
+  cursor: pointer;
+  background-color: #f7f7f7;
+}
+
+/* -------------------------------------------------------
+ * 3. IMAGE PREVIEW
+ * ------------------------------------------------------- */
 
 .image-preview {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  margin-top: 15px;
+  padding: 15px;
+  border: 1px dashed var(--color-input-border);
+  border-radius: 6px;
+  text-align: center;
+}
+
+.image-preview p {
+  font-style: italic;
+  color: var(--color-text-secondary);
+  margin-bottom: 10px;
 }
 
 .preview-img {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  margin-top: 8px;
+  max-width: 100%;
+  max-height: 200px;
+  height: auto;
+  border-radius: 4px;
+  object-fit: contain;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
+/* -------------------------------------------------------
+ * 4. BUTTONS
+ * ------------------------------------------------------- */
+
 .submit-btn {
-  padding: 12px;
-  background-color: #3a4750;
-  color: #fff;
+  background-color: var(--color-accent);
+  color: var(--color-form-bg); /* White text */
+  padding: 15px 25px;
   border: none;
-  border-radius: 6px;
-  font-weight: bold;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  margin-top: 10px;
+  /* Add a subtle slide/pop on hover */
 }
 
 .submit-btn:hover {
-  background-color: #313841;
+  background-color: #a3722a; /* Slightly darker gold on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+/* -------------------------------------------------------
+ * 5. STATES (Simulated)
+ * ------------------------------------------------------- */
+
+/* Since the component uses `alert()`, we don't have dedicated React elements for loading/error.
+ * These classes are included for completeness if the component were refactored to show inline states. */
+
+.loading {
+  text-align: center;
+  font-size: 1.5em;
+  color: var(--color-accent);
+  padding: 20px;
+  animation: pulse 1.5s infinite;
+}
+
+.error-message {
+  padding: 10px;
+  background-color: rgba(244, 67, 54, 0.1);
+  color: var(--color-error);
+  border: 1px solid var(--color-error);
+  border-radius: 4px;
+  text-align: center;
+  font-weight: 500;
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* -------------------------------------------------------
+ * 6. ANIMATIONS (KEYFRAMES)
+ * ------------------------------------------------------- */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* -------------------------------------------------------
+ * 7. RESPONSIVENESS (MEDIA QUERIES)
+ * ------------------------------------------------------- */
+
+/* --- Tablet/Small Desktop (up to 900px) --- */
+@media (max-width: 900px) {
+  .add-product-container {
+    max-width: 90%;
+    margin: 30px auto;
+    padding: 25px;
+  }
+}
+
+/* --- Mobile (up to 600px) --- */
+@media (max-width: 600px) {
+  .add-product-container {
+    margin: 20px 10px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-title {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .submit-btn {
+    font-size: 0.95em;
+    padding: 10px;
+  }
+
+  .submit-btn {
+    margin-top: 5px;
+  }
 }

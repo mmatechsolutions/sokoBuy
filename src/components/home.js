@@ -46,7 +46,7 @@ const HomePage = () => {
     setError(null);
 
     try {
-      const res = await fetch("http://localhost:5000/api/products");
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/products`);
       if (!res.ok) throw new Error("Failed to fetch products");
       const data = await res.json();
 
@@ -81,11 +81,15 @@ const HomePage = () => {
         <h1 className="logo">Soko Buy</h1>
 
         <div className="nav-buttons">
-          <Link to="/dashboard">
-            <button type="button" className="search-btn">
-              Admin
-            </button>
-          </Link>
+          <div>
+            {user && (user.role === "admin" || user.role === "vendor") && (
+              <Link to="/dashboard">
+                <button type="button" className="search-btn">
+                  Admin
+                </button>
+              </Link>
+            )}
+          </div>
           <button type="button" className="search-btn">
             Search
           </button>

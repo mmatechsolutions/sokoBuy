@@ -33,7 +33,7 @@ export default function AuthProvider({ children }) {
 
   // SIGNUP
   const signup = async (formData) => {
-    const res = await fetch("http://localhost:5000/api/signup", {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/api/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -52,7 +52,7 @@ export default function AuthProvider({ children }) {
 
   // SIGNIN
   const signin = async (emailOrPhone, password) => {
-    const res = await fetch("http://localhost:5000/api/signin", {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/api/signin`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ emailOrPhone, password }),

@@ -26,7 +26,7 @@ export default function AdminOrders() {
   const fetchOrders = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:5000/api/orders", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/orders`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -63,14 +63,17 @@ export default function AdminOrders() {
 
     setUpdatingId(orderId);
     try {
-      const res = await fetch(`http://localhost:5000/api/${orderId}/status`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ status, message }),
-      });
+      const res = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/${orderId}/status`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ status, message }),
+        }
+      );
 
       if (res.status === 401) {
         signout();
