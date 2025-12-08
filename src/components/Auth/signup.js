@@ -31,19 +31,22 @@ export default function SignUp() {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          firstName: form.firstName,
-          lastName: form.lastName,
-          dob: form.dob,
-          gender: form.gender,
-          phone: form.phone,
-          email: form.email,
-          password: form.password,
-        }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/signup`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            firstName: form.firstName,
+            lastName: form.lastName,
+            dob: form.dob,
+            gender: form.gender,
+            phone: form.phone,
+            email: form.email,
+            password: form.password,
+          }),
+        }
+      );
 
       const data = await response.json();
 
@@ -105,7 +108,6 @@ export default function SignUp() {
           <option value="">Select Gender</option>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
-          <option value="Other">Other</option>
         </select>
         <input
           name="phone"
