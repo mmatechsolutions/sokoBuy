@@ -26,12 +26,9 @@ export default function AdminOrders() {
   const fetchOrders = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/admin/orders`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/orders`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       if (res.status === 401) {
         signout();

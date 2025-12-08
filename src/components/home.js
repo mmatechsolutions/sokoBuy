@@ -4,6 +4,7 @@ import CardList from "./listCard";
 import { AuthContext } from "../context/authcontext";
 import { Link } from "react-router-dom";
 import { CartContext } from "../context/cartContext";
+import { useNavigate } from "react-router-dom";
 
 const categories = [
   "All",
@@ -22,6 +23,7 @@ const HomePage = () => {
 
   const { user, signout } = useContext(AuthContext);
   const { cart } = useContext(CartContext);
+  const navigate = useNavigate();
 
   const [menuOpen, setMenuOpen] = useState(false);
   const accRef = useRef(null);
@@ -97,7 +99,7 @@ const HomePage = () => {
           {/* ACCOUNT DROPDOWN */}
           <div className="acc-wrapper" ref={accRef}>
             <button type="button" className="acc" onClick={toggleMenu}>
-              {user ? `Hi, ${user.lastName}` : "Account"}
+              {user ? `Hi, ${user.firstName}` : "Account"}
             </button>
 
             {!user && menuOpen && (
@@ -116,11 +118,18 @@ const HomePage = () => {
                 <button
                   className="dropdown-btn"
                   onClick={() => {
-                    signout();
-                    setMenuOpen(false);
+                    navigate("/account");
                   }}
                 >
                   Account
+                </button>
+                <button
+                  className="dropdown-btn"
+                  onClick={() => {
+                    navigate("/orders");
+                  }}
+                >
+                  My Orders
                 </button>
 
                 <button

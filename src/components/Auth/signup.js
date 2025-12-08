@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./signup.css";
 
 export default function SignUp() {
@@ -15,7 +16,7 @@ export default function SignUp() {
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -64,6 +65,8 @@ export default function SignUp() {
           password: "",
           confirmPassword: "",
         });
+
+        navigate("/signin");
       }
     } catch (err) {
       setError("Server error. Please try again later.");

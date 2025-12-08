@@ -2,52 +2,32 @@ import React, { useContext } from "react";
 import { CartContext } from "../context/cartContext";
 import "./cart.css";
 import { AuthContext } from "../context/authcontext";
+import { useNavigate } from "react-router-dom";
 
 export default function CartList() {
-  const { cart, addToCart, decreaseQuantity, removeFromCart, clearCart } =
+  const { cart, addToCart, decreaseQuantity, removeFromCart } =
     useContext(CartContext);
 
   const { token } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  // Calculate total
   const getTotal = () =>
     cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
-  const handleCheckout = async () => {
+  const handleCheckout = () => {
     if (cart.length === 0) return;
 
-    const orderPayload = {
-      items: cart.map((item) => ({
-        _id: item._id,
-        name: item.name,
-        price: item.price,
-        quantity: item.quantity,
-      })),
-      total: getTotal(),
-    };
-
-    try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/checkout`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // <-- add JWT
-        },
-        body: JSON.stringify(orderPayload),
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        alert("Checkout successful!");
-        clearCart();
-      } else {
-        alert(data.message || "Checkout failed");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Server error during checkout");
+    if (!token) {
+      navigate("/login");
+      return;
     }
+
+    navigate("/checkout", {
+      state: {
+        cart,
+        total: getTotal(),
+      },
+    });
   };
 
   return (
