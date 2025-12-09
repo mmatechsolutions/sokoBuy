@@ -1,0 +1,176 @@
+/* =======================================================
+ * CSS File: ordersummary.css
+ * Component: OrderSummary (React Final Order Confirmation)
+ * Professional Color Palette: Confirmation & Trust (Clean & Green)
+ * - Primary (Text/Dark Accent): #2c3e50 (Deep Slate Blue)
+ * - Accent (Highlight/Success): #27ae60 (Darker Emerald Green)
+ * - Background: #ecf0f1 (Light Cool Gray)
+ * - Card Background: #ffffff (White)
+ * ======================================================= */
+
+/* -------------------------------------------------------
+ * 1. GLOBAL STYLES
+ * ------------------------------------------------------- */
+:root {
+  --color-primary: #2c3e50; /* Deep Slate Blue for main text */
+  --color-accent: #27ae60; /* Dark Emerald Green for confirmation */
+  --color-background: #ecf0f1; /* Light page background */
+  --color-card-bg: #ffffff; /* White summary card background */
+  --color-text-secondary: #7f8c8d; /* Muted gray for details */
+  --color-border: #bdc3c7; /* Light gray border */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-primary);
+  line-height: 1.6;
+}
+
+/* -------------------------------------------------------
+ * 2. LAYOUT STYLING (WRAPPER, SECTIONS)
+ * ------------------------------------------------------- */
+
+.summary-page {
+  max-width: 650px;
+  margin: 40px auto;
+  padding: 30px;
+  /* Card styling for the entire summary page */
+  background-color: var(--color-card-bg);
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  /* Initial fade-in effect */
+  animation: fadeIn 0.7s ease-out;
+}
+
+.summary-page h2:first-child {
+  font-size: 2.2em;
+  font-weight: 800;
+  color: var(--color-accent);
+  text-align: center;
+  margin-bottom: 25px;
+  border-bottom: 3px solid var(--color-accent);
+  padding-bottom: 10px;
+}
+
+.summary-page h3 {
+  font-size: 1.3em;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-left: 5px solid var(--color-border);
+  padding-left: 10px;
+}
+
+/* -------------------------------------------------------
+ * 3. DETAILS & ITEMS
+ * ------------------------------------------------------- */
+
+.summary-page p {
+  font-size: 1em;
+  color: var(--color-primary);
+  margin-bottom: 4px;
+}
+
+.summary-page strong {
+  font-weight: 700;
+}
+
+/* --- Individual Item Row --- */
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 10px;
+  font-size: 0.95em;
+  border-bottom: 1px dotted #ecf0f1;
+}
+
+.summary-item span:first-child {
+  flex-grow: 1; /* Item name takes up most space */
+  font-weight: 500;
+}
+
+.summary-item span:last-child {
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+/* --- Totals Section --- */
+
+.summary-page h3:last-of-type,
+.summary-page h2:last-child {
+    text-align: right;
+    border-left: none;
+    padding-left: 0;
+    padding-right: 10px;
+}
+
+.summary-page h3:last-of-type {
+    color: var(--color-text-secondary);
+    font-size: 1.1em;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--color-border);
+}
+
+.summary-page h2:last-child {
+  /* Style for the Grand Total */
+  font-size: 1.8em;
+  font-weight: 800;
+  color: var(--color-accent);
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 3px double var(--color-border);
+}
+
+/* -------------------------------------------------------
+ * 4. ANIMATIONS (KEYFRAMES)
+ * ------------------------------------------------------- */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* -------------------------------------------------------
+ * 5. RESPONSIVENESS
+ * ------------------------------------------------------- */
+
+@media (max-width: 600px) {
+  .summary-page {
+    margin: 20px 10px;
+    padding: 20px;
+  }
+
+  .summary-page h2:first-child {
+    font-size: 1.8em;
+  }
+
+  .summary-page h3 {
+    font-size: 1.2em;
+    padding-left: 8px;
+  }
+
+  .summary-item {
+    font-size: 0.9em;
+  }
+
+  .summary-page h2:last-child {
+    font-size: 1.5em;
+  }
+}

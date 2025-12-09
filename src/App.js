@@ -11,6 +11,8 @@ import CartList from "./components/cart";
 import Orders from "./components/orders";
 import Dashboard from "./components/Admin/dashboard";
 import AdminOrders from "./components/Admin/adminOrders";
+import Checkout from "./components/checkout";
+import OrderSummary from "./components/orderSummary";
 
 const App = () => {
   return (
@@ -26,6 +28,8 @@ const App = () => {
             <Route path="/orders" element={<Orders />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/admin/orders" element={<AdminOrders />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/order-summary" element={<OrderSummary />} />
           </Routes>
         </BrowserRouter>
       </CartProvider>

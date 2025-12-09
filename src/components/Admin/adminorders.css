@@ -1,10 +1,11 @@
 /* =======================================================
  * CSS File: adminorders.css
- * Component: AdminOrders (React Order Management Component)
- * Professional Color Palette: Cool Tones & Accent
- * - Primary (Text/Dark Accent): #2c3e50 (Dark Navy/Charcoal)
- * - Accent (Highlight/Primary Button): #3498db (Bright Blue)
- * - Background: #ecf0f1 (Light Cool Gray)
+ * Component: AdminOrders (React Admin Order List & Management)
+ * Professional Color Palette: Admin Dashboard (Cool Tones)
+ * - Primary (Text/Dark Accent): #1a202c (Dark Gray/Black)
+ * - Accent (Action/Button): #38a169 (Emerald Green/Success)
+ * - Highlight: #4299e1 (Light Blue/Info)
+ * - Background: #f7fafc (Off-White/Cool Gray)
  * - Card Background: #ffffff (White)
  * ======================================================= */
 
@@ -12,18 +13,19 @@
  * 1. GLOBAL STYLES
  * ------------------------------------------------------- */
 :root {
-  --color-primary: #2c3e50; /* Dark Navy/Charcoal for text */
-  --color-accent: #3498db; /* Bright Blue for highlights */
-  --color-background: #ecf0f1; /* Light cool gray page background */
-  --color-card-bg: #ffffff; /* White for cards */
-  --color-text-secondary: #7f8c8d; /* Muted gray text */
+  --color-primary: #1a202c; /* Dark text and structure */
+  --color-accent: #38a169; /* Green for main actions/success */
+  --color-highlight: #4299e1; /* Blue for highlights/info */
+  --color-background: #f7fafc; /* Light page background */
+  --color-card-bg: #ffffff; /* White card background */
+  --color-text-secondary: #718096; /* Muted gray for details */
 
-  /* Status Colors */
-  --status-pending: #f39c12; /* Orange */
-  --status-processing: #2980b9; /* Mid Blue */
-  --status-shipped: #34495e; /* Darker Navy */
-  --status-delivered: #27ae60; /* Green */
-  --status-cancelled: #e74c3c; /* Red */
+  /* Status Badge Colors */
+  --status-pending: #ffc107; /* Yellow */
+  --status-processing: #4299e1; /* Blue/Info */
+  --status-shipped: #9f7aea; /* Purple */
+  --status-delivered: #38a169; /* Green/Success */
+  --status-cancelled: #e53e3e; /* Red/Danger */
 }
 
 *,
@@ -35,63 +37,62 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Inter', 'Helvetica Neue', sans-serif;
   background-color: var(--color-background);
   color: var(--color-primary);
   line-height: 1.6;
 }
 
 /* Headings */
-h1, h3, h4 {
+.orders-container h1 {
+  font-size: 2.5em;
+  font-weight: 800;
   color: var(--color-primary);
-  margin-bottom: 0.5em;
-  font-weight: 600;
+  margin-bottom: 25px;
+  text-align: center;
 }
 
-h1 {
-  font-size: 2.5em;
-  border-bottom: 2px solid var(--color-accent);
-  padding-bottom: 10px;
-  margin-bottom: 20px;
+.order-card h3 {
+    color: var(--color-primary);
+    font-size: 1.2em;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.order-card h4 {
+    color: var(--color-highlight);
+    font-size: 1.05em;
+    margin-top: 15px;
+    margin-bottom: 8px;
+    border-bottom: 1px dashed #e2e8f0;
+    padding-bottom: 5px;
 }
 
 /* -------------------------------------------------------
- * 2. LAYOUT STYLING (WRAPPER, FLEX, CARDS)
+ * 2. LAYOUT STYLING (WRAPPER, CARDS, FLEX)
  * ------------------------------------------------------- */
 
 .orders-container {
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 30px;
-  /* Initial fade-in effect for the page content */
-  animation: fadeIn 0.8s ease-out;
+  margin: 30px auto;
+  padding: 0 20px;
+  /* Initial fade-in */
+  animation: fadeIn 0.7s ease-out;
 }
 
-/* --- Filter Strip (Flex Layout) --- */
-.filter-strip {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 25px;
-  padding: 10px 0;
-  border-bottom: 1px solid #bdc3c7;
-}
-
-/* --- Order Card --- */
+/* --- Order Card (Main Display Unit) --- */
 .order-card {
   background-color: var(--color-card-bg);
   padding: 25px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  border-left: 5px solid var(--color-accent); /* Visual emphasis */
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  border: 1px solid #e2e8f0;
+  transition: box-shadow 0.3s ease;
 }
 
-/* Card hover animation: subtle pop effect */
 .order-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 
 .order-header {
@@ -101,287 +102,321 @@ h1 {
   margin-bottom: 10px;
 }
 
-.order-header h3 {
-  font-size: 1.5em;
-  color: var(--color-accent);
-}
-
 .order-date {
-  font-size: 0.9em;
-  color: var(--color-text-secondary);
-  margin-bottom: 15px;
-  border-bottom: 1px dashed var(--color-background);
-  padding-bottom: 10px;
+    font-size: 0.9em;
+    color: var(--color-text-secondary);
+    margin-bottom: 10px;
 }
 
-.item-list,
-.history ul {
-  list-style: none;
-  padding-left: 0;
-  margin-bottom: 15px;
+/* --- Items List --- */
+.item-list {
+    list-style: none;
+    padding-left: 0;
 }
-
 .item-list li {
-  display: flex;
-  justify-content: space-between;
-  padding: 5px 0;
-  border-bottom: 1px dotted var(--color-background);
-  font-size: 0.95em;
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    font-size: 0.95em;
+    border-bottom: 1px dotted #f1f1f1;
+}
+.item-list b {
+    color: var(--color-primary);
 }
 
-.total {
-  text-align: right;
-  font-size: 1.8em;
-  color: var(--status-delivered); /* Use a success color for total */
-  margin: 15px 0;
-  padding-top: 10px;
-  border-top: 2px dashed var(--color-background);
-}
-
-.shipping, .history {
+/* --- Customer Details (Toggle) --- */
+.customer-details {
     margin-top: 15px;
-    padding: 10px;
-    background-color: #f8f9fa; /* Lighter background for details */
-    border-radius: 4px;
+    padding: 10px 15px;
+    background-color: #f7f9fc;
+    border-radius: 6px;
+    border-left: 3px solid var(--color-highlight);
+    /* Slide down animation */
+    animation: slideDown 0.4s ease-out;
+}
+.customer-details p {
+    font-size: 0.9em;
+    margin-bottom: 4px;
+}
+.customer-details b {
+    font-weight: 600;
+    margin-right: 5px;
 }
 
-.history ul li {
-    font-size: 0.85em;
-    padding: 3px 0;
+/* --- Status History --- */
+.history {
+    margin-top: 20px;
 }
-
-/* --- Update Section (Flex Layout) --- */
-.update-section {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-  padding-top: 15px;
-  border-top: 1px solid #ecf0f1;
+.history ul {
+    list-style: none;
+    padding-left: 15px;
+    border-left: 2px solid #e2e8f0;
 }
-
-.update-section select,
-.update-section input,
-.update-section button {
-  padding: 10px 15px;
-  border-radius: 4px;
-  font-size: 1em;
-  border: 1px solid #bdc3c7;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+.history li {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    position: relative;
 }
-
-.update-section select,
-.update-section input {
-  flex-grow: 1;
+.history li::before {
+    content: '•';
+    color: var(--color-highlight);
+    font-size: 1.2em;
+    position: absolute;
+    left: -15px;
+    top: -2px;
 }
-
-.update-section select:focus,
-.update-section input:focus {
-  border-color: var(--color-accent);
-  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
-  outline: none;
+.history small {
+    color: var(--color-text-secondary);
+    display: block;
 }
 
 /* -------------------------------------------------------
- * 3. BUTTONS AND BADGES (STATUS INDICATORS)
+ * 3. FILTER STRIP (FLEX LAYOUT, BADGES)
  * ------------------------------------------------------- */
+
+.filter-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  padding: 15px;
+  background-color: var(--color-card-bg);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
 
 .filter-btn {
   display: flex;
   align-items: center;
   gap: 8px;
-  background-color: var(--color-card-bg);
-  color: var(--color-primary);
-  border: 1px solid var(--color-text-secondary);
-  cursor: pointer;
   padding: 8px 15px;
+  border: 1px solid #e2e8f0;
   border-radius: 20px;
+  background-color: var(--color-card-bg);
+  color: var(--color-text-secondary);
+  cursor: pointer;
   font-weight: 500;
-  transition: background-color 0.3s, color 0.3s, transform 0.1s;
+  transition: all 0.3s ease;
 }
 
-/* Button hover animation: subtle lift and color change */
 .filter-btn:hover {
-  background-color: #f2f4f6;
-  border-color: var(--color-accent);
-  transform: translateY(-1px);
+  background-color: #f0f4f7;
+  border-color: var(--color-highlight);
 }
 
 .filter-btn.active {
-  background-color: var(--color-accent);
+  background-color: var(--color-highlight);
   color: var(--color-card-bg);
-  border-color: var(--color-accent);
-  box-shadow: 0 2px 5px rgba(52, 152, 219, 0.3);
-}
-
-.filter-btn.active .filter-badge {
-    background-color: var(--color-card-bg);
-    color: var(--color-accent);
+  border-color: var(--color-highlight);
 }
 
 .filter-badge {
-  display: inline-block;
-  min-width: 20px;
-  padding: 2px 8px;
-  font-size: 0.75em;
-  font-weight: 700;
-  line-height: 1;
-  text-align: center;
-  background-color: var(--color-text-secondary);
-  color: var(--color-card-bg);
+  background-color: rgba(0, 0, 0, 0.1);
+  color: inherit;
+  padding: 2px 6px;
   border-radius: 10px;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-/* --- Status Badges (on Order Card) --- */
-.badge {
-  display: inline-block;
-  padding: 5px 10px;
   font-size: 0.8em;
   font-weight: 700;
-  border-radius: 4px;
+}
+
+.filter-btn.active .filter-badge {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* -------------------------------------------------------
+ * 4. STATUS BADGES & BUTTONS
+ * ------------------------------------------------------- */
+
+.badge {
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.85em;
+  font-weight: 700;
   color: var(--color-card-bg);
   text-transform: uppercase;
 }
 
-.pending {
-  background-color: var(--status-pending);
+.badge.pending { background-color: var(--status-pending); }
+.badge.processing { background-color: var(--status-processing); }
+.badge.shipped { background-color: var(--status-shipped); }
+.badge.delivered { background-color: var(--status-delivered); }
+.badge.cancelled { background-color: var(--status-cancelled); }
+
+.toggle-btn {
+    background: none;
+    border: none;
+    color: var(--color-highlight);
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    margin-bottom: 10px;
+    transition: color 0.2s ease;
 }
-.processing {
-  background-color: var(--status-processing);
-}
-.shipped {
-  background-color: var(--status-shipped);
-}
-.delivered {
-  background-color: var(--status-delivered);
-}
-.cancelled {
-  background-color: var(--status-cancelled);
+.toggle-btn:hover {
+    color: #007bff;
 }
 
-/* Apply button styling */
+/* --- Update Section (Flex Layout) --- */
+.update-section {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 2px dashed #e2e8f0;
+    align-items: center;
+}
+
+.update-section select,
+.update-section input {
+    padding: 8px 10px;
+    border: 1px solid #cdd5e0;
+    border-radius: 4px;
+    flex-grow: 1;
+}
+
 .update-section button {
-  background-color: var(--color-accent);
-  color: var(--color-card-bg);
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
+    background-color: var(--color-accent);
+    color: var(--color-card-bg);
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    min-width: 100px;
+    transition: background-color 0.3s ease;
 }
 
 .update-section button:hover:not(:disabled) {
-  background-color: #2980b9; /* Slightly darker accent on hover */
+    background-color: #2c7a4b; /* Darker green */
 }
 
 .update-section button:disabled {
-  background-color: #bdc3c7; /* Light gray for disabled state */
-  cursor: not-allowed;
+    background-color: #a0aec0;
+    cursor: not-allowed;
 }
 
-
 /* -------------------------------------------------------
- * 4. STATES (LOADING, ERROR, EMPTY)
+ * 5. STATES (LOADING, ERROR, EMPTY)
  * ------------------------------------------------------- */
 
+.loading,
+.error {
+    text-align: center;
+    font-size: 1.4em;
+    padding: 50px 0;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
 .loading {
-  text-align: center;
-  font-size: 1.5em;
-  color: var(--color-accent);
-  padding: 50px 0;
-  /* Spin animation for visual loading cue (optional) */
-  /* animation: spin 1s linear infinite; */
+    color: var(--color-highlight);
+    /* Pulse animation for loading text */
+    animation: pulse 1.5s infinite ease-in-out;
 }
 
 .error {
-  text-align: center;
-  font-size: 1.2em;
-  color: var(--status-cancelled);
-  padding: 20px;
-  margin: 30px auto;
-  border: 1px solid var(--status-cancelled);
-  background-color: rgba(231, 76, 60, 0.1);
-  border-radius: 4px;
-  /* Fade-in effect */
-  animation: fadeIn 0.5s ease-out;
+    color: var(--status-cancelled);
+    background-color: rgba(229, 62, 62, 0.1);
+    border: 1px solid var(--status-cancelled);
+    font-weight: 600;
 }
 
-.orders-container > p:last-child {
+.orders-container > p:last-child:not(.loading):not(.error) {
     text-align: center;
+    font-size: 1.1em;
     color: var(--color-text-secondary);
-    font-style: italic;
-    margin-top: 30px;
-    padding: 20px;
-    border: 1px dashed var(--color-text-secondary);
-    border-radius: 4px;
+    padding: 30px;
 }
 
 /* -------------------------------------------------------
- * 5. ANIMATIONS (KEYFRAMES)
+ * 6. ANIMATIONS (KEYFRAMES)
  * ------------------------------------------------------- */
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
 }
 
 /* -------------------------------------------------------
- * 6. RESPONSIVENESS (MEDIA QUERIES)
+ * 7. RESPONSIVENESS (MEDIA QUERIES)
  * ------------------------------------------------------- */
 
-/* --- Tablet/Small Desktop (up to 900px) --- */
+/* --- Tablet (up to 900px) --- */
 @media (max-width: 900px) {
-  .orders-container {
-    padding: 20px;
-  }
+    .orders-container {
+        max-width: 100%;
+    }
 }
 
 /* --- Mobile (up to 600px) --- */
 @media (max-width: 600px) {
-  h1 {
-    font-size: 2em;
-  }
+    .orders-container {
+        padding: 0 10px;
+    }
+    
+    .orders-container h1 {
+        font-size: 2em;
+        margin-bottom: 20px;
+    }
+    
+    .filter-strip {
+        justify-content: flex-start;
+        padding: 10px;
+        margin-bottom: 20px;
+        /* Allow strip to scroll horizontally if needed */
+        overflow-x: auto; 
+    }
 
-  .filter-strip {
-    justify-content: center; /* Center filter buttons */
-    gap: 8px;
-    border-bottom: none;
-  }
-  
-  .filter-btn {
-    font-size: 0.9em;
-    padding: 6px 12px;
-  }
+    .filter-btn {
+        flex-shrink: 0; /* Prevents buttons from squishing */
+        padding: 6px 10px;
+        font-size: 0.9em;
+    }
 
-  .order-card {
-    padding: 15px;
-    border-left-width: 3px;
-  }
+    .order-card {
+        padding: 15px;
+    }
 
-  .order-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+    .order-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .order-card h3:first-child {
+        font-size: 1.1em;
+    }
 
-  .order-header h3 {
-    margin-bottom: 5px;
-  }
+    .order-date {
+        font-size: 0.85em;
+    }
 
-  .badge {
-    margin-top: 5px;
-  }
+    .update-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
 
-  .update-section {
-    flex-direction: column;
-  }
-
-  .update-section button {
-    width: 100%; /* Full width button on mobile */
-  }
-
-  .total {
-    font-size: 1.5em;
-  }
+    .update-section select,
+    .update-section input,
+    .update-section button {
+        width: 100%;
+    }
 }

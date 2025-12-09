@@ -18,7 +18,7 @@ export default function CartList() {
     if (cart.length === 0) return;
 
     if (!token) {
-      navigate("/login");
+      navigate("/signin");
       return;
     }
 
