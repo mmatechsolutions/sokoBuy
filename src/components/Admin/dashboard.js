@@ -38,6 +38,11 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  // Function to close the sidebar
+  const closeSidebar = () => {
+    setSidebarOpen(false);
+  };
+
   // -------------------------------
   // FETCH FUNCTIONS
   // -------------------------------
@@ -214,17 +219,26 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard-container">
+      {/* Mobile Header (Always visible on mobile) */}
       <div className="mobile-header">
-        <button
-          className="menu-btn"
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-        >
+        <button className="menu-btn" onClick={() => setSidebarOpen(true)}>
           ☰
         </button>
         <h2 className="mobile-title">Dashboard</h2>
       </div>
 
+      {/* Sidebar Backdrop (for auto-closing on mobile) */}
+      {sidebarOpen && (
+        <div className="sidebar-backdrop" onClick={closeSidebar}></div>
+      )}
+
+      {/* Sidebar (Fixed on Desktop, Toggled on Mobile) */}
       <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
+        {/* Close Button (Visible only on mobile) */}
+        <button className="close-btn" onClick={closeSidebar}>
+          &times;
+        </button>
+
         <h3 className="sidebar-title">Quick Links</h3>
         <ul className="sidebar-links">
           <li>

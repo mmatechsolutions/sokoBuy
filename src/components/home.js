@@ -1,25 +1,21 @@
 import "./home.css";
 import React, { useState, useEffect, useContext, useRef } from "react";
 import CardList from "./listCard";
+import SearchBar from "./searchBar";
 import { AuthContext } from "../context/authcontext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../context/cartContext";
-import { useNavigate } from "react-router-dom";
-
-const categories = [
-  "All",
-  "Electronics",
-  "Appliances",
-  "Fashion",
-  "Beauty",
-  "Services",
-];
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState(["All"]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // Search
+  const [searchResults, setSearchResults] = useState([]);
+  const [searching, setSearching] = useState(false);
 
   const { user, signout } = useContext(AuthContext);
   const { cart } = useContext(CartContext);
@@ -30,7 +26,7 @@ const HomePage = () => {
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
 
-  // Close dropdown on outside click
+  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClick = (e) => {
       if (accRef.current && !accRef.current.contains(e.target)) {
@@ -50,6 +46,7 @@ const HomePage = () => {
     try {
       const res = await fetch(`${process.env.REACT_APP_API_URL}/api/products`);
       if (!res.ok) throw new Error("Failed to fetch products");
+
       const data = await res.json();
 
       // Shuffle products
@@ -60,6 +57,10 @@ const HomePage = () => {
       }
 
       setProducts(shuffled);
+
+      // Extract categories
+      const dbCategories = [...new Set(data.products.map((p) => p.category))];
+      setCategories(["All", ...dbCategories]);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -71,6 +72,23 @@ const HomePage = () => {
     fetchProducts();
   }, []);
 
+  // Search handler
+  const handleSearch = (query) => {
+    if (!query.trim()) {
+      setSearching(false);
+      setSearchResults([]);
+      return;
+    }
+
+    const results = products.filter((p) =>
+      p.name.toLowerCase().includes(query.toLowerCase())
+    );
+
+    setSearchResults(results);
+    setSearching(true);
+  };
+
+  // Category Filter
   const filteredProducts =
     selectedCategory === "All"
       ? products
@@ -83,20 +101,19 @@ const HomePage = () => {
         <h1 className="logo">Soko Buy</h1>
 
         <div className="nav-buttons">
-          <div>
-            {user && (user.role === "admin" || user.role === "vendor") && (
-              <Link to="/dashboard">
-                <button type="button" className="search-btn">
-                  Admin
-                </button>
-              </Link>
-            )}
-          </div>
-          <button type="button" className="search-btn">
-            Search
-          </button>
+          {/* Admin Button */}
+          {user && (user.role === "admin" || user.role === "vendor") && (
+            <Link to="/dashboard">
+              <button type="button" className="search-btn">
+                Admin
+              </button>
+            </Link>
+          )}
 
-          {/* ACCOUNT DROPDOWN */}
+          {/* Search Component */}
+          <SearchBar onSearch={handleSearch} />
+
+          {/* Account Dropdown */}
           <div className="acc-wrapper" ref={accRef}>
             <button type="button" className="acc" onClick={toggleMenu}>
               {user ? `Hi, ${user.firstName}` : "Account"}
@@ -117,17 +134,14 @@ const HomePage = () => {
               <div className="acc-dropdown">
                 <button
                   className="dropdown-btn"
-                  onClick={() => {
-                    navigate("/account");
-                  }}
+                  onClick={() => navigate("/account")}
                 >
                   Account
                 </button>
+
                 <button
                   className="dropdown-btn"
-                  onClick={() => {
-                    navigate("/orders");
-                  }}
+                  onClick={() => navigate("/orders")}
                 >
                   My Orders
                 </button>
@@ -157,26 +171,35 @@ const HomePage = () => {
       </div>
 
       {/* Categories */}
-      <div className="categories-right">
-        <ul>
-          {categories.map((cat) => (
-            <li key={cat}>
-              <button
-                className={selectedCategory === cat ? "active-category" : ""}
-                onClick={() => setSelectedCategory(cat)}
-              >
-                {cat}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {!searching && (
+        <div className="categories-right">
+          <ul>
+            {categories.map((cat) => (
+              <li key={cat}>
+                <button
+                  className={selectedCategory === cat ? "active-category" : ""}
+                  onClick={() => setSelectedCategory(cat)}
+                >
+                  {cat}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
-      {/* Main content */}
+      {/* Main Content */}
       <div className="main">
         {loading && <p>Loading products...</p>}
         {error && <p className="error">Error: {error}</p>}
-        {!loading && !error && <CardList products={filteredProducts} />}
+
+        {/* SEARCH RESULTS */}
+        {searching && <CardList products={searchResults} />}
+
+        {/* NORMAL LISTING */}
+        {!searching && !loading && !error && (
+          <CardList products={filteredProducts} />
+        )}
       </div>
     </div>
   );

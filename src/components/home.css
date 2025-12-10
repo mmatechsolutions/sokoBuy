@@ -1,76 +1,53 @@
-/* =======================================================
- * CSS File: home.css
- * Component: HomePage (React E-commerce Product Listing)
- * Professional Color Palette: Classic E-commerce (Blue/Orange)
- * - Primary (Text/Dark Accent): #1a237e (Deep Indigo/Navy)
- * - Accent (Buttons/Highlights): #ff6f00 (Bright Orange/Amber)
- * - Background: #f7f9fc (Very Light Blue/Gray)
- * - Navbar/Card Background: #ffffff (White)
- * ======================================================= */
 
-/* -------------------------------------------------------
- * 1. GLOBAL STYLES
- * ------------------------------------------------------- */
-:root {
-  --color-primary: #1a237e; /* Deep Indigo for main text and elements */
-  --color-accent: #ff6f00; /* Bright Orange for primary actions */
-  --color-background: #f7f9fc; /* Light page background */
-  --color-card-bg: #ffffff; /* White card background */
-  --color-text-secondary: #546e7a; /* Muted text */
-  --color-danger: #d32f2f; /* Red for errors */
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
 
 body {
-  font-family: 'Poppins', 'Arial', sans-serif;
+  font-family: 'Poppins', 'Helvetica Neue', sans-serif;
   background-color: var(--color-background);
   color: var(--color-primary);
   line-height: 1.6;
 }
 
+/* Headings and Links */
+h1, h2 {
+  font-weight: 700;
+  color: var(--color-primary);
+}
 a {
   text-decoration: none;
   color: inherit;
-  transition: color 0.3s ease;
+  transition: color var(--transition-speed);
+}
+a:hover {
+  color: var(--color-accent);
 }
 
 /* -------------------------------------------------------
- * 2. LAYOUT STYLING (NAVBAR, CONTAINERS, FLEX)
+ * 2. LAYOUT STYLING (NAVBAR, CATEGORIES, MAIN)
  * ------------------------------------------------------- */
 
 .container {
-  /* Set max width for large screens */
   max-width: 1400px;
   margin: 0 auto;
-  padding-top: 20px;
-  /* Initial fade-in for the entire page */
-  animation: fadeIn 0.8s ease-out;
+  padding: 0 20px 40px 20px;
+  animation: fadeIn 0.6s ease-out;
 }
 
-/* --- Navbar (Flex Layout) --- */
+/* --- Navigation Bar --- */
 .nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--color-card-bg);
-  padding: 10px 30px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px 0;
   margin-bottom: 20px;
-  border-radius: 8px;
+  border-bottom: 1px solid var(--color-border);
   position: sticky;
   top: 0;
-  z-index: 1000;
+  background-color: var(--color-background);
+  z-index: 10;
 }
 
 .logo {
-  font-size: 1.8em;
+  font-size: 2em;
   font-weight: 800;
   color: var(--color-accent);
 }
@@ -81,80 +58,111 @@ a {
   gap: 15px;
 }
 
-/* --- Main Content --- */
-.main {
-  padding: 0 30px 30px 30px;
-}
-
-/* --- Categories (Flex Layout) --- */
+/* --- Category Filter Bar --- */
 .categories-right {
-  padding: 0 30px;
-  margin-bottom: 25px;
+  margin-bottom: 30px;
+  background-color: var(--color-card-bg);
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .categories-right ul {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 10px;
 }
 
 .categories-right button {
   background: none;
-  border: 1px solid var(--color-text-secondary);
-  color: var(--color-text-secondary);
+  border: none;
   padding: 8px 15px;
-  border-radius: 20px;
-  font-size: 0.9em;
+  font-size: 0.95em;
   cursor: pointer;
-  transition: all 0.3s ease;
+  color: var(--color-primary);
+  border-radius: 5px;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+  font-weight: 500;
 }
 
 .categories-right button:hover {
-  background-color: rgba(255, 111, 0, 0.1);
-  border-color: var(--color-accent);
+  background-color: rgba(243, 156, 18, 0.1);
   color: var(--color-accent);
 }
 
-.categories-right button.active-category {
-  background-color: var(--color-primary);
-  color: var(--color-card-bg);
-  border-color: var(--color-primary);
-  font-weight: 600;
-  /* Apply a slight scale-up effect */
-  transform: scale(1.05);
+.active-category {
+  background-color: var(--color-accent) !important;
+  color: var(--color-card-bg) !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* -------------------------------------------------------
- * 3. ACCOUNT DROPDOWN (STATES & ANIMATIONS)
+ * 3. BUTTONS, DROPDOWNS, AND BADGES
  * ------------------------------------------------------- */
 
+.search-btn,
+.acc,
+.cart {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+}
+
+/* --- General & Admin Button --- */
+.search-btn {
+  background-color: var(--color-primary);
+  color: var(--color-card-bg);
+}
+
+.search-btn:hover {
+  background-color: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+/* --- Account Wrapper & Dropdown --- */
 .acc-wrapper {
   position: relative;
+  z-index: 20;
+}
+
+.acc {
+  background-color: var(--color-card-bg);
+  color: var(--color-primary);
+  border: 1px solid var(--color-border);
+}
+
+.acc:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 5px rgba(243, 156, 18, 0.3);
 }
 
 .acc-dropdown {
   position: absolute;
-  top: 100%; /* Position below the button */
+  top: 100%;
   right: 0;
-  margin-top: 10px;
-  background-color: var(--color-card-bg);
-  border: 1px solid #ccc;
-  border-radius: 6px;
   width: 150px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  display: flex;
-  flex-direction: column;
+  background-color: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  margin-top: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  /* Slide-down/Fade-in animation */
-  animation: slideDown 0.3s ease-out;
+  animation: slideDown 0.2s ease-out;
 }
 
 .dropdown-btn {
+  display: block;
+  width: 100%;
   padding: 10px 15px;
   text-align: left;
   background: none;
   border: none;
+  border-bottom: 1px solid #f8f9fa;
   cursor: pointer;
   color: var(--color-primary);
   font-size: 1em;
@@ -162,198 +170,194 @@ a {
 }
 
 .dropdown-btn:hover {
-  background-color: #f0f0f0;
+  background-color: var(--color-background);
   color: var(--color-accent);
+  text-decoration: none;
 }
 
-/* -------------------------------------------------------
- * 4. BUTTONS AND BADGES
- * ------------------------------------------------------- */
+.dropdown-btn:last-child {
+  border-bottom: none;
+}
 
-.search-btn,
-.acc,
+/* --- Cart Button & Badge --- */
 .cart {
-  background-color: var(--color-primary);
+  background-color: var(--color-success);
   color: var(--color-card-bg);
-  padding: 8px 15px;
-  border: none;
-  border-radius: 4px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.1s ease;
-}
-
-.search-btn:hover,
-.acc:hover,
-.cart:hover {
-  background-color: #3949ab; /* Slightly lighter primary color */
-  transform: translateY(-1px);
-}
-
-.cart {
   position: relative;
   display: flex;
   align-items: center;
+  gap: 5px;
+}
+
+.cart:hover {
+  background-color: #2ecc71; /* Lighter success green */
+  transform: translateY(-1px);
 }
 
 .cart-badge {
   position: absolute;
-  top: -8px;
-  right: -8px;
+  top: -5px;
+  right: -5px;
   background-color: var(--color-accent);
   color: var(--color-card-bg);
   border-radius: 50%;
-  padding: 2px 6px;
+  padding: 4px 8px;
   font-size: 0.75em;
   font-weight: 700;
   line-height: 1;
-  /* Pop-in animation for badge */
   animation: popIn 0.3s ease-out;
 }
 
 /* -------------------------------------------------------
- * 5. STATES (LOADING, ERROR)
+ * 4. SEARCH BAR STYLES (Assuming SearchBar is a separate component)
+ * NOTE: Add these styles to the SearchBar's CSS file if it exists
+ * ------------------------------------------------------- */
+/* For the sake of completeness, assuming searchbar styles here */
+.search-wrapper {
+    position: relative;
+    /* Styles for the SearchBar container if needed */
+}
+
+/* -------------------------------------------------------
+ * 5. STATES (LOADING, ERROR, EMPTY)
  * ------------------------------------------------------- */
 
 .main > p {
     text-align: center;
-    font-size: 1.2em;
-    padding: 50px;
+    padding: 30px;
+    font-size: 1.1em;
+    font-weight: 500;
 }
 
-.main > p:not(.error) {
-    color: var(--color-text-secondary);
-    /* Simple pulse animation for loading text */
-    animation: pulse 1.5s infinite ease-in-out;
-}
-
-.error {
-    color: var(--color-danger);
-    font-weight: 600;
-    border: 1px dashed var(--color-danger);
-    background-color: rgba(211, 47, 47, 0.05);
+.main > p.error {
+    color: #c0392b; /* Darker red */
+    background-color: rgba(192, 57, 43, 0.1);
+    border: 1px solid #c0392b;
     border-radius: 6px;
 }
-
 
 /* -------------------------------------------------------
  * 6. ANIMATIONS (KEYFRAMES)
  * ------------------------------------------------------- */
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes popIn {
-  0% {
-    transform: scale(0.5);
-    opacity: 0;
-  }
-  70% {
-    transform: scale(1.1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-  }
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
 }
 
-@keyframes pulse {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.6;
-  }
-  100% {
-    opacity: 1;
-  }
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* -------------------------------------------------------
  * 7. RESPONSIVENESS (MEDIA QUERIES)
  * ------------------------------------------------------- */
 
-/* --- Tablet (up to 900px) --- */
-@media (max-width: 900px) {
-  .nav {
-    padding: 10px 20px;
-  }
-
-  .nav-buttons {
-    gap: 10px;
-  }
-
-  .search-btn,
-  .acc,
-  .cart {
-    padding: 8px 12px;
-  }
-
-  .main,
-  .categories-right {
-    padding: 0 20px;
-  }
-  
-  .categories-right ul {
-    justify-content: center;
-  }
+/* --- Tablet (up to 992px) --- */
+@media (max-width: 992px) {
+    .logo {
+        font-size: 1.8em;
+    }
+    .nav-buttons {
+        gap: 10px;
+    }
+    .categories-right {
+        margin-top: 15px;
+    }
+    .categories-right ul {
+        justify-content: center;
+        gap: 8px;
+    }
+    .search-btn,
+    .acc,
+    .cart {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
 }
 
 /* --- Mobile (up to 600px) --- */
 @media (max-width: 600px) {
-  .nav {
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    padding: 15px 10px;
-  }
+    .container {
+        padding: 0 10px 20px 10px;
+    }
 
-  .logo {
-    font-size: 1.5em;
-  }
+    .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-bottom: 15px;
+        gap: 15px;
+    }
+    
+    .nav-buttons {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .logo {
+        margin-bottom: 5px;
+        font-size: 1.6em;
+    }
 
-  .nav-buttons {
-    width: 100%;
-    justify-content: space-around;
-    gap: 5px;
-  }
+    /* Stack or hide less critical elements */
+    .nav-buttons > a:first-child { /* Admin button wrapper */
+        display: none; /* Hide Admin button on very small screens for space */
+    }
 
-  .search-btn,
-  .acc,
-  .cart {
-    flex-grow: 1; /* Distribute buttons evenly */
-    padding: 10px 5px;
-    font-size: 0.9em;
-  }
-  
-  .main,
-  .categories-right {
-    padding: 0 10px;
-  }
+    /* Ensure search bar takes priority */
+    .nav-buttons > :nth-child(2) { /* SearchBar wrapper */
+        order: -1;
+        flex-grow: 1;
+        margin-right: 10px;
+    }
+    
+    .search-input {
+        width: 100%;
+    }
 
-  .categories-right ul {
-    gap: 8px;
-  }
+    /* Small adjustments to buttons */
+    .acc,
+    .cart {
+        padding: 8px 12px;
+        font-size: 0.85em;
+    }
 
-  .categories-right button {
-    padding: 6px 10px;
-    font-size: 0.8em;
-  }
+    .acc-dropdown {
+        left: 0;
+        right: auto;
+    }
+
+    /* Category scroll on mobile */
+    .categories-right {
+        padding: 10px 0;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 0;
+    }
+    
+    .categories-right ul {
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        padding: 0 10px;
+    }
+    
+    .categories-right button {
+        padding: 6px 12px;
+        font-size: 0.9em;
+        display: inline-block;
+    }
+    
 }
