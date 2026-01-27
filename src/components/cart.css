@@ -1,25 +1,11 @@
-/* =======================================================
- * CSS File: cart.css
- * Component: CartList (React Shopping Cart Component)
- * Professional Color Palette: Modern Teal & Gold/Orange Accent
- * - Primary (Text/Dark Accent): #2c3e50 (Dark Navy/Charcoal)
- * - Accent (Highlight/Checkout Button): #1abc9c (Bright Teal)
- * - Secondary Accent (Action/Remove Button): #e67e22 (Orange/Gold)
- * - Background: #f8f9fa (Very Light Gray)
- * - Card Background: #ffffff (White)
- * ======================================================= */
-
-/* -------------------------------------------------------
- * 1. GLOBAL STYLES
- * ------------------------------------------------------- */
 :root {
-  --color-primary: #2c3e50; /* Dark text */
-  --color-accent: #1abc9c; /* Teal for primary actions */
-  --color-secondary-accent: #e67e22; /* Orange for destructive/secondary actions */
-  --color-background: #f8f9fa; /* Light page background */
-  --color-card-bg: #ffffff; /* Cart item background */
-  --color-text-light: #7f8c8d; /* Muted gray text */
-  --color-danger: #e74c3c; /* Red for removals */
+  --color-primary: #2c3e50;
+  --color-accent: #1abc9c;
+  --color-secondary-accent: #e67e22;
+  --color-background: #f8f9fa;
+  --color-card-bg: #ffffff;
+  --color-text-light: #7f8c8d;
+  --color-danger: #e74c3c;
 }
 
 *,
@@ -37,61 +23,47 @@ body {
   line-height: 1.6;
 }
 
-/* Headings */
-.cart-title {
-  font-size: 2em;
-  font-weight: 700;
-  color: var(--color-primary);
-  margin-bottom: 25px;
-  text-align: center;
-  border-bottom: 3px solid var(--color-accent);
-  padding-bottom: 10px;
+.cart-container {
+  width: min(100%, 56.25rem);
+  margin: clamp(1.5rem, 5vh, 2.5rem) auto;
+  padding: 0 1.25rem;
+  animation: fadeIn 0.5s ease-out;
 }
 
-/* -------------------------------------------------------
- * 2. LAYOUT STYLING (WRAPPER, FLEX, CARDS)
- * ------------------------------------------------------- */
-
-.cart-container {
-  max-width: 900px;
-  margin: 30px auto;
-  padding: 20px;
-  /* Initial fade-in for the cart page */
-  animation: fadeIn 0.5s ease-out;
+.cart-title {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 1.5625rem;
+  text-align: center;
+  border-bottom: 0.1875rem solid var(--color-accent);
+  padding-bottom: 0.625rem;
 }
 
 .cart-items-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  margin-bottom: 100px; /* Space for fixed summary */
+  gap: 0.9375rem;
+  margin-bottom: 6.25rem;
 }
 
-/* --- Cart Item Card (Flex Layout) --- */
 .cart-item {
   display: flex;
-  gap: 20px;
+  gap: 1.25rem;
   background-color: var(--color-card-bg);
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-  border: 1px solid #eee;
-  /* Subtle slide-in effect for each item */
+  padding: 0.9375rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.05);
+  border: 0.0625rem solid #eee;
   animation: slideInRight 0.4s ease-out backwards;
 }
 
-/* Apply staggered animation delay to items */
-.cart-item:nth-child(1) { animation-delay: 0.1s; }
-.cart-item:nth-child(2) { animation-delay: 0.2s; }
-.cart-item:nth-child(3) { animation-delay: 0.3s; }
-/* ... (You might use a loop in React or CSS vars for more items) */
-
 .cart-item-img {
-  width: 100px;
-  height: 100px;
+  width: 6.25rem;
+  height: 6.25rem;
   object-fit: cover;
-  border-radius: 4px;
-  flex-shrink: 0; /* Prevents image from shrinking */
+  border-radius: 0.25rem;
+  flex-shrink: 0;
 }
 
 .cart-item-info {
@@ -102,225 +74,148 @@ body {
 }
 
 .cart-item-name {
-  font-size: 1.1em;
-  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
   color: var(--color-primary);
 }
 
 .cart-item-price {
   font-weight: 600;
   color: var(--color-accent);
-  margin: 5px 0;
+  margin: 0.3125rem 0;
 }
 
-/* --- Quantity Controls (Flex Layout) --- */
 .cart-qty-controls {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 10px;
+  gap: 0.5rem;
+  margin-bottom: 0.625rem;
 }
 
 .cart-qty-controls button {
   background-color: var(--color-background);
   color: var(--color-primary);
-  border: 1px solid var(--color-text-light);
-  width: 30px;
-  height: 30px;
-  border-radius: 50%; /* Circular buttons */
-  font-size: 1.2em;
+  border: 0.0625rem solid var(--color-text-light);
+  width: 1.875rem;
+  height: 1.875rem;
+  border-radius: 50%;
+  font-size: 1.1rem;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Quantity button hover effect: subtle pop/scale */
 .cart-qty-controls button:hover {
   background-color: var(--color-accent);
   color: var(--color-card-bg);
   border-color: var(--color-accent);
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
 .cart-qty-controls span {
   font-weight: 700;
-  min-width: 20px;
+  min-width: 1.25rem;
   text-align: center;
 }
 
-/* --- Fixed Summary Bar --- */
 .cart-fixed-summary {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
   background-color: var(--color-card-bg);
-  padding: 15px 20px;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  padding: 1rem 1.25rem;
+  box-shadow: 0 -0.125rem 0.625rem rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 10;
-  /* Simple fade-in and slide-up animation */
+  z-index: 100;
   animation: slideUp 0.5s ease-out forwards;
 }
 
 .cart-fixed-total {
-  font-size: 1.5em;
+  font-size: clamp(1.2rem, 4vw, 1.5rem);
   font-weight: 700;
   color: var(--color-primary);
 }
 
-
-/* -------------------------------------------------------
- * 3. BUTTONS AND STATES
- * ------------------------------------------------------- */
-
 .cart-remove-btn {
   background: none;
-  border: 1px solid var(--color-danger);
+  border: 0.0625rem solid var(--color-danger);
   color: var(--color-danger);
-  padding: 5px 10px;
-  border-radius: 4px;
-  font-size: 0.85em;
+  padding: 0.3125rem 0.625rem;
+  border-radius: 0.25rem;
+  font-size: 0.85rem;
   cursor: pointer;
   width: fit-content;
-  transition: background-color 0.3s, color 0.3s;
+  transition: all 0.3s ease;
 }
 
 .cart-remove-btn:hover {
   background-color: var(--color-danger);
-  color: var(--color-card-bg);
+  color: #ffffff;
 }
 
 .cart-checkout-btn {
   background-color: var(--color-accent);
-  color: var(--color-card-bg);
+  color: #ffffff;
   border: none;
-  padding: 12px 30px;
-  border-radius: 6px;
-  font-size: 1.1em;
+  padding: 0.75rem 1.875rem;
+  border-radius: 0.375rem;
+  font-size: 1.1rem;
   font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.1s ease;
+  transition: all 0.3s ease;
 }
 
 .cart-checkout-btn:hover {
-  background-color: #16a085; /* Darker teal on hover */
-  transform: translateY(-1px);
+  background-color: #16a085;
+  transform: translateY(-0.0625rem);
 }
 
-/* --- Empty State --- */
 .cart-empty {
   text-align: center;
-  font-size: 1.5em;
+  font-size: 1.5rem;
   color: var(--color-text-light);
-  padding: 50px 0;
-  border: 2px dashed var(--color-text-light);
-  border-radius: 8px;
-  margin-top: 50px;
+  padding: 3.125rem 0;
+  border: 0.125rem dashed var(--color-text-light);
+  border-radius: 0.5rem;
+  margin-top: 3.125rem;
 }
 
-/* -------------------------------------------------------
- * 4. ANIMATIONS (KEYFRAMES)
- * ------------------------------------------------------- */
-
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes slideUp {
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0);
-  }
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
 }
 
 @keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(1.25rem); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
-
-/* -------------------------------------------------------
- * 5. RESPONSIVENESS (MEDIA QUERIES)
- * ------------------------------------------------------- */
-
-/* --- Tablet (up to 768px) --- */
-@media (max-width: 768px) {
-  .cart-container {
-    padding: 15px;
-  }
-
-  .cart-item {
-    gap: 15px;
-  }
-
-  .cart-item-img {
-    width: 80px;
-    height: 80px;
-  }
-  
-  .cart-item-name {
-    font-size: 1em;
-  }
-}
-
-/* --- Mobile (up to 480px) --- */
 @media (max-width: 480px) {
   .cart-item {
-    flex-direction: column; /* Stack image and info vertically */
+    flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 10px;
   }
-  
   .cart-item-img {
     width: 100%;
     height: auto;
-    max-height: 150px;
-    margin-bottom: 10px;
+    max-height: 9.375rem;
   }
-
-  .cart-item-info {
-    align-items: center;
-  }
-
-  .cart-qty-controls {
-    justify-content: center;
-    margin: 10px 0;
-  }
-
-  .cart-remove-btn {
-    width: 80%;
-    margin-top: 10px;
-  }
-
   .cart-fixed-summary {
     flex-direction: column;
-    gap: 10px;
-    padding: 10px;
+    gap: 0.625rem;
   }
-
-  .cart-fixed-total {
-    font-size: 1.3em;
-  }
-
   .cart-checkout-btn {
     width: 100%;
-    font-size: 1em;
-    padding: 10px 0;
   }
 }

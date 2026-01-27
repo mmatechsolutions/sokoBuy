@@ -1,11 +1,9 @@
-
-
 .search-bar {
   display: flex;
   align-items: center;
   border: 1px solid var(--color-border);
   border-radius: 6px;
-  overflow: hidden; /* Keeps input and button corners aligned */
+  overflow: hidden;
   background-color: var(--color-card-bg);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   transition: box-shadow var(--transition-speed), border-color var(--transition-speed);
@@ -13,30 +11,22 @@
 
 .search-bar:focus-within {
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 2px rgba(243, 156, 18, 0.2); /* Soft focus ring */
+  box-shadow: 0 0 0 2px rgba(243, 156, 18, 0.2);
 }
 
-/* -------------------------------------------------------
- * 2. INPUT FIELD
- * ------------------------------------------------------- */
-
 .search-bar input[type="text"] {
-  flex-grow: 1; /* Allows input to take up maximum space */
+  flex-grow: 1;
   padding: 10px 15px;
   border: none;
-  font-size: 1em;
+  font-size: 1rem;
   color: var(--color-primary);
-  outline: none; /* Remove default focus outline, handled by parent focus-within */
-  min-width: 150px; /* Ensure input is visible on desktop */
+  outline: none;
+  min-width: 9.375rem;
 }
 
 .search-bar input::placeholder {
-  color: #95a5a6; /* Muted placeholder text */
+  color: #95a5a6;
 }
-
-/* -------------------------------------------------------
- * 3. SUBMIT BUTTON
- * ------------------------------------------------------- */
 
 .search-bar button[type="submit"] {
   padding: 10px 15px;
@@ -46,37 +36,31 @@
   font-weight: 600;
   cursor: pointer;
   transition: background-color var(--transition-speed), transform 0.1s ease;
-  flex-shrink: 0; /* Prevents button from shrinking */
+  flex-shrink: 0;
 }
 
 .search-bar button[type="submit"]:hover {
-  background-color: #e67e22; /* Slightly darker orange on hover */
+  background-color: #e67e22;
   transform: scale(1.02);
 }
 
 .search-bar button[type="submit"]:active {
-  background-color: #d35400; /* Darker orange on click */
+  background-color: #d35400;
 }
-
-
-/* -------------------------------------------------------
- * 4. RESPONSIVENESS (Mobile Adjustments)
- * ------------------------------------------------------- */
 
 @media (max-width: 600px) {
   .search-bar {
     width: 100%;
-    /* Align with the nav-buttons styling in home.css */
   }
 
   .search-bar input[type="text"] {
     padding: 8px 10px;
-    font-size: 0.95em;
+    font-size: 0.95rem;
     min-width: unset;
   }
 
   .search-bar button[type="submit"] {
     padding: 8px 12px;
-    font-size: 0.9em;
+    font-size: 0.9rem;
   }
 }

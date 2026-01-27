@@ -1,88 +1,93 @@
-
+:root {
+  --color-primary: #3a4750;
+  --color-accent: #f39c12;
+  --color-background: #f9f9f9;
+  --color-card-bg: #ffffff;
+  --color-border: #e1e1e1;
+  --color-success: #27ae60;
+  --transition-speed: 0.3s;
+}
 
 body {
-  font-family: 'Poppins', 'Helvetica Neue', sans-serif;
+  font-family: 'Poppins', system-ui, -apple-system, sans-serif;
   background-color: var(--color-background);
   color: var(--color-primary);
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Headings and Links */
 h1, h2 {
   font-weight: 700;
   color: var(--color-primary);
 }
+
 a {
   text-decoration: none;
   color: inherit;
   transition: color var(--transition-speed);
 }
+
 a:hover {
   color: var(--color-accent);
 }
 
-/* -------------------------------------------------------
- * 2. LAYOUT STYLING (NAVBAR, CATEGORIES, MAIN)
- * ------------------------------------------------------- */
-
 .container {
-  max-width: 1400px;
+  width: min(100%, 87.5rem);
   margin: 0 auto;
-  padding: 0 20px 40px 20px;
+  padding: 0 1.25rem 2.5rem 1.25rem;
   animation: fadeIn 0.6s ease-out;
 }
 
-/* --- Navigation Bar --- */
 .nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 0;
-  margin-bottom: 20px;
-  border-bottom: 1px solid var(--color-border);
+  padding: 1.25rem 0;
+  margin-bottom: 1.25rem;
+  border-bottom: 0.0625rem solid var(--color-border);
   position: sticky;
   top: 0;
   background-color: var(--color-background);
-  z-index: 10;
+  z-index: 100;
 }
 
 .logo {
-  font-size: 2em;
+  font-size: 2rem;
   font-weight: 800;
   color: var(--color-accent);
+  letter-spacing: -0.03125rem;
 }
 
 .nav-buttons {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 0.9375rem;
 }
 
-/* --- Category Filter Bar --- */
 .categories-right {
-  margin-bottom: 30px;
+  margin-bottom: 1.875rem;
   background-color: var(--color-card-bg);
-  padding: 10px 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.05);
 }
 
 .categories-right ul {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .categories-right button {
   background: none;
   border: none;
-  padding: 8px 15px;
-  font-size: 0.95em;
+  padding: 0.5rem 0.9375rem;
+  font-size: 0.95rem;
   cursor: pointer;
   color: var(--color-primary);
-  border-radius: 5px;
-  transition: background-color var(--transition-speed), color var(--transition-speed);
+  border-radius: 0.3125rem;
+  transition: all var(--transition-speed);
   font-weight: 500;
 }
 
@@ -95,62 +100,47 @@ a:hover {
   background-color: var(--color-accent) !important;
   color: var(--color-card-bg) !important;
   font-weight: 600 !important;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.125rem 0.3125rem rgba(243, 156, 18, 0.3);
 }
 
-/* -------------------------------------------------------
- * 3. BUTTONS, DROPDOWNS, AND BADGES
- * ------------------------------------------------------- */
-
-.search-btn,
-.acc,
-.cart {
-  padding: 10px 18px;
+.search-btn, .acc, .cart {
+  padding: 0.625rem 1.125rem;
   border: none;
-  border-radius: 6px;
+  border-radius: 0.375rem;
   font-weight: 600;
   cursor: pointer;
   transition: all var(--transition-speed);
 }
 
-/* --- General & Admin Button --- */
 .search-btn {
   background-color: var(--color-primary);
-  color: var(--color-card-bg);
+  color: #ffffff;
 }
 
 .search-btn:hover {
   background-color: var(--color-accent);
-  transform: translateY(-1px);
+  transform: translateY(-0.0625rem);
 }
 
-/* --- Account Wrapper & Dropdown --- */
 .acc-wrapper {
   position: relative;
-  z-index: 20;
 }
 
 .acc {
   background-color: var(--color-card-bg);
   color: var(--color-primary);
-  border: 1px solid var(--color-border);
-}
-
-.acc:hover {
-  border-color: var(--color-accent);
-  box-shadow: 0 0 5px rgba(243, 156, 18, 0.3);
+  border: 0.0625rem solid var(--color-border);
 }
 
 .acc-dropdown {
   position: absolute;
-  top: 100%;
+  top: 110%;
   right: 0;
-  width: 150px;
+  width: 9.375rem;
   background-color: var(--color-card-bg);
-  border: 1px solid var(--color-border);
-  border-radius: 6px;
-  margin-top: 5px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border: 0.0625rem solid var(--color-border);
+  border-radius: 0.375rem;
+  box-shadow: 0 0.25rem 0.625rem rgba(0, 0, 0, 0.1);
   overflow: hidden;
   animation: slideDown 0.2s ease-out;
 }
@@ -158,206 +148,68 @@ a:hover {
 .dropdown-btn {
   display: block;
   width: 100%;
-  padding: 10px 15px;
+  padding: 0.625rem 0.9375rem;
   text-align: left;
   background: none;
   border: none;
-  border-bottom: 1px solid #f8f9fa;
   cursor: pointer;
   color: var(--color-primary);
-  font-size: 1em;
-  transition: background-color 0.2s;
+  transition: background 0.2s;
 }
 
 .dropdown-btn:hover {
   background-color: var(--color-background);
   color: var(--color-accent);
-  text-decoration: none;
 }
 
-.dropdown-btn:last-child {
-  border-bottom: none;
-}
-
-/* --- Cart Button & Badge --- */
 .cart {
   background-color: var(--color-success);
-  color: var(--color-card-bg);
+  color: #ffffff;
   position: relative;
   display: flex;
   align-items: center;
-  gap: 5px;
-}
-
-.cart:hover {
-  background-color: #2ecc71; /* Lighter success green */
-  transform: translateY(-1px);
+  gap: 0.3125rem;
 }
 
 .cart-badge {
   position: absolute;
-  top: -5px;
-  right: -5px;
+  top: -0.3125rem;
+  right: -0.3125rem;
   background-color: var(--color-accent);
-  color: var(--color-card-bg);
+  color: #ffffff;
   border-radius: 50%;
-  padding: 4px 8px;
-  font-size: 0.75em;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
   font-weight: 700;
   line-height: 1;
   animation: popIn 0.3s ease-out;
 }
 
-/* -------------------------------------------------------
- * 4. SEARCH BAR STYLES (Assuming SearchBar is a separate component)
- * NOTE: Add these styles to the SearchBar's CSS file if it exists
- * ------------------------------------------------------- */
-/* For the sake of completeness, assuming searchbar styles here */
-.search-wrapper {
-    position: relative;
-    /* Styles for the SearchBar container if needed */
-}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes popIn { 0% { transform: scale(0.5); } 100% { transform: scale(1); } }
+@keyframes slideDown { from { opacity: 0; transform: translateY(-0.625rem); } to { opacity: 1; transform: translateY(0); } }
 
-/* -------------------------------------------------------
- * 5. STATES (LOADING, ERROR, EMPTY)
- * ------------------------------------------------------- */
+@media (max-width: 768px) {
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .nav-buttons {
+    width: 100%;
+    justify-content: space-between;
+  }
 
-.main > p {
-    text-align: center;
-    padding: 30px;
-    font-size: 1.1em;
-    font-weight: 500;
-}
+  .categories-right {
+    overflow-x: auto;
+    white-space: nowrap;
+    border-radius: 0;
+    margin: 0 -1.25rem 1.875rem -1.25rem;
+  }
 
-.main > p.error {
-    color: #c0392b; /* Darker red */
-    background-color: rgba(192, 57, 43, 0.1);
-    border: 1px solid #c0392b;
-    border-radius: 6px;
-}
-
-/* -------------------------------------------------------
- * 6. ANIMATIONS (KEYFRAMES)
- * ------------------------------------------------------- */
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes popIn {
-    0% { transform: scale(0.5); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-}
-
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* -------------------------------------------------------
- * 7. RESPONSIVENESS (MEDIA QUERIES)
- * ------------------------------------------------------- */
-
-/* --- Tablet (up to 992px) --- */
-@media (max-width: 992px) {
-    .logo {
-        font-size: 1.8em;
-    }
-    .nav-buttons {
-        gap: 10px;
-    }
-    .categories-right {
-        margin-top: 15px;
-    }
-    .categories-right ul {
-        justify-content: center;
-        gap: 8px;
-    }
-    .search-btn,
-    .acc,
-    .cart {
-        padding: 8px 15px;
-        font-size: 0.9em;
-    }
-}
-
-/* --- Mobile (up to 600px) --- */
-@media (max-width: 600px) {
-    .container {
-        padding: 0 10px 20px 10px;
-    }
-
-    .nav {
-        flex-direction: column;
-        align-items: flex-start;
-        padding-bottom: 15px;
-        gap: 15px;
-    }
-    
-    .nav-buttons {
-        width: 100%;
-        justify-content: space-between;
-    }
-    
-    .logo {
-        margin-bottom: 5px;
-        font-size: 1.6em;
-    }
-
-    /* Stack or hide less critical elements */
-    .nav-buttons > a:first-child { /* Admin button wrapper */
-        display: none; /* Hide Admin button on very small screens for space */
-    }
-
-    /* Ensure search bar takes priority */
-    .nav-buttons > :nth-child(2) { /* SearchBar wrapper */
-        order: -1;
-        flex-grow: 1;
-        margin-right: 10px;
-    }
-    
-    .search-input {
-        width: 100%;
-    }
-
-    /* Small adjustments to buttons */
-    .acc,
-    .cart {
-        padding: 8px 12px;
-        font-size: 0.85em;
-    }
-
-    .acc-dropdown {
-        left: 0;
-        right: auto;
-    }
-
-    /* Category scroll on mobile */
-    .categories-right {
-        padding: 10px 0;
-        overflow-x: auto;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-        border-radius: 0;
-    }
-    
-    .categories-right ul {
-        justify-content: flex-start;
-        flex-wrap: nowrap;
-        padding: 0 10px;
-    }
-    
-    .categories-right button {
-        padding: 6px 12px;
-        font-size: 0.9em;
-        display: inline-block;
-    }
-    
+  .categories-right ul {
+    flex-wrap: nowrap;
+    padding: 0 1.25rem;
+  }
 }

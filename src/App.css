@@ -11,4 +11,30 @@ html, body {
   background-color: #f9f9f9;
   color: #3A4750;
   overflow-x: hidden; /* prevent horizontal scroll */
+}* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+  background-color: #f9f9f9;
+  color: #3a4750;
+  overflow-x: hidden;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+:root {
+  font-size: 100%; /* 16px default */
+}
+
+@media (max-width: 48rem) {
+  :root {
+    font-size: 93.75%; /* 15px for mobile readability */
+  }
 }

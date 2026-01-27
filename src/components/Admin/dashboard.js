@@ -23,7 +23,7 @@ ChartJS.register(
   LinearScale,
   Tooltip,
   Legend,
-  PointElement
+  PointElement,
 );
 
 export default function Dashboard() {
@@ -38,14 +38,10 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Function to close the sidebar
   const closeSidebar = () => {
     setSidebarOpen(false);
   };
 
-  // -------------------------------
-  // FETCH FUNCTIONS
-  // -------------------------------
   const fetchOrders = useCallback(async () => {
     try {
       const res = await fetch(`${process.env.REACT_APP_API_URL}/api/orders`, {
@@ -56,7 +52,7 @@ export default function Dashboard() {
       setPendingCount(
         Array.isArray(data)
           ? data.filter((o) => o.status === "pending").length
-          : 0
+          : 0,
       );
     } catch (err) {
       console.error("Error fetching orders:", err);
@@ -69,7 +65,7 @@ export default function Dashboard() {
         `${process.env.REACT_APP_API_URL}/api/admin/stats/daily-sales`,
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
       if (!res.ok) throw new Error(`HTTP error ${res.status}`);
       const data = await res.json();
@@ -86,7 +82,7 @@ export default function Dashboard() {
         `${process.env.REACT_APP_API_URL}/api/admin/stats/status-counts`,
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
       if (!res.ok) throw new Error(`HTTP error ${res.status}`);
       const data = await res.json();
@@ -103,7 +99,7 @@ export default function Dashboard() {
         `${process.env.REACT_APP_API_URL}/api/admin/stats/best-products`,
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
       if (!res.ok) throw new Error(`HTTP error ${res.status}`);
       const data = await res.json();
@@ -120,7 +116,7 @@ export default function Dashboard() {
         `${process.env.REACT_APP_API_URL}/api/admin/stats/summary`,
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
       if (!res.ok) throw new Error(`HTTP error ${res.status}`);
       const data = await res.json();
@@ -155,21 +151,14 @@ export default function Dashboard() {
     fetchSummary,
   ]);
 
-  // -------------------------------
-  // EFFECT
-  // -------------------------------
   useEffect(() => {
     if (!token) return;
     fetchAllData();
-    const interval = setInterval(fetchAllData, 30000);
-    return () => clearInterval(interval);
+    return;
   }, [token, fetchAllData]);
 
-  // -------------------------------
-  // CHART DATA
-  // -------------------------------
   const dailySalesLabels = dailySales.map(
-    (d) => `${d._id?.day || 0}/${d._id?.month || 0}`
+    (d) => `${d._id?.day || 0}/${d._id?.month || 0}`,
   );
   const dailySalesData = {
     labels: dailySalesLabels,
@@ -219,7 +208,6 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard-container">
-      {/* Mobile Header (Always visible on mobile) */}
       <div className="mobile-header">
         <button className="menu-btn" onClick={() => setSidebarOpen(true)}>
           ☰
@@ -227,14 +215,11 @@ export default function Dashboard() {
         <h2 className="mobile-title">Dashboard</h2>
       </div>
 
-      {/* Sidebar Backdrop (for auto-closing on mobile) */}
       {sidebarOpen && (
         <div className="sidebar-backdrop" onClick={closeSidebar}></div>
       )}
 
-      {/* Sidebar (Fixed on Desktop, Toggled on Mobile) */}
       <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
-        {/* Close Button (Visible only on mobile) */}
         <button className="close-btn" onClick={closeSidebar}>
           &times;
         </button>

@@ -81,7 +81,7 @@ const HomePage = () => {
     }
 
     const results = products.filter((p) =>
-      p.name.toLowerCase().includes(query.toLowerCase())
+      p.name.toLowerCase().includes(query.toLowerCase()),
     );
 
     setSearchResults(results);
@@ -101,15 +101,6 @@ const HomePage = () => {
         <h1 className="logo">Soko Buy</h1>
 
         <div className="nav-buttons">
-          {/* Admin Button */}
-          {user && (user.role === "admin" || user.role === "vendor") && (
-            <Link to="/dashboard">
-              <button type="button" className="search-btn">
-                Admin
-              </button>
-            </Link>
-          )}
-
           {/* Search Component */}
           <SearchBar onSearch={handleSearch} />
 
@@ -122,10 +113,10 @@ const HomePage = () => {
             {!user && menuOpen && (
               <div className="acc-dropdown">
                 <a href="/signin" className="dropdown-btn">
-                  Sign In
+                  Log In
                 </a>
                 <a href="/signup" className="dropdown-btn">
-                  Sign Up
+                  Create Account
                 </a>
               </div>
             )}
@@ -138,6 +129,15 @@ const HomePage = () => {
                 >
                   Account
                 </button>
+                {user && (user.role === "admin" || user.role === "vendor") && (
+                  <button
+                    type="button"
+                    className="dropdown-btn"
+                    onClick={() => navigate("/dashboard")}
+                  >
+                    Admin
+                  </button>
+                )}
 
                 <button
                   className="dropdown-btn"

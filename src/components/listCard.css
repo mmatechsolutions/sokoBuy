@@ -1,22 +1,9 @@
-/* =======================================================
- * CSS File: listCard.css
- * Component: CardList (React Product Card Grid)
- * Professional Color Palette: Warm Earth Tones & Modern Design
- * - Primary (Text/Dark Accent): #3c3b37 (Dark Slate/Coffee)
- * - Accent (Buttons/Highlights): #a67c52 (Muted Gold/Bronze)
- * - Background: #f9f7f4 (Very Light Beige/Off-White)
- * - Card Background: #ffffff (White)
- * ======================================================= */
-
-/* -------------------------------------------------------
- * 1. GLOBAL STYLES (Focusing on elements within the component context)
- * ------------------------------------------------------- */
 :root {
-  --color-primary: #3c3b37; /* Dark text */
-  --color-accent: #a67c52; /* Muted Gold/Bronze for actions */
-  --color-background: #f9f7f4; /* Light component background */
-  --color-card-bg: #ffffff; /* White card background */
-  --color-price: #884a3c; /* Deep Red-Brown for emphasis (price) */
+  --color-primary: #3c3b37;
+  --color-accent: #a67c52;
+  --color-background: #f9f7f4;
+  --color-card-bg: #ffffff;
+  --color-price: #884a3c;
   --color-shadow-light: rgba(0, 0, 0, 0.05);
 }
 
@@ -24,86 +11,72 @@
   box-sizing: border-box;
 }
 
-/* -------------------------------------------------------
- * 2. LAYOUT STYLING (GRID & CARDS)
- * ------------------------------------------------------- */
-
 .card-list {
-  /* Product Grid: Define a responsive grid layout */
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 30px;
-  padding: 20px 0;
-  /* Simple fade-in for the product list */
+  grid-template-columns: repeat(auto-fill, minmax(17.5rem, 1fr));
+  gap: 1.875rem;
+  padding: 1.25rem 0;
   animation: fadeIn 0.8s ease-out;
 }
 
-/* --- Product Card --- */
 .product-card {
   background-color: var(--color-card-bg);
-  border-radius: 8px;
-  overflow: hidden; /* Ensures image corners are rounded */
-  box-shadow: 0 4px 15px var(--color-shadow-light);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 0.25rem 0.9375rem var(--color-shadow-light);
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Card hover animation: subtle lift/pop effect */
 .product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transform: translateY(-0.3125rem);
+  box-shadow: 0 0.5rem 1.5625rem rgba(0, 0, 0, 0.1);
 }
 
 .product-image {
   width: 100%;
-  height: 250px; /* Fixed height for consistent grid look */
+  height: 15.625rem;
   object-fit: cover;
   transition: transform 0.4s ease;
 }
 
-/* Zoom effect on image hover */
 .product-card:hover .product-image {
   transform: scale(1.05);
 }
 
 .product-info {
-  padding: 15px;
+  padding: 0.9375rem;
   display: flex;
   flex-direction: column;
-  flex-grow: 1; /* Ensures all info sections take available space */
+  flex-grow: 1;
 }
 
 .product-name {
-  font-size: 1.25em;
+  font-size: 1.25rem;
   font-weight: 600;
   color: var(--color-primary);
-  margin-bottom: 8px;
-  /* Truncate name if it's too long */
+  margin-bottom: 0.5rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .product-price {
-  font-size: 1.1em;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--color-price);
-  margin-bottom: 15px;
-  margin-top: auto; /* Pushes the price and button to the bottom */
+  margin-bottom: 0.9375rem;
+  margin-top: auto;
 }
-
-/* -------------------------------------------------------
- * 3. BUTTONS
- * ------------------------------------------------------- */
 
 .add-to-cart-btn {
   background-color: var(--color-accent);
-  color: var(--color-card-bg); /* White text */
-  padding: 10px 15px;
+  color: #ffffff;
+  padding: 0.625rem 0.9375rem;
   border: none;
-  border-radius: 5px;
-  font-size: 1em;
+  border-radius: 0.3125rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   width: 100%;
@@ -111,75 +84,47 @@
 }
 
 .add-to-cart-btn:hover {
-  background-color: #8c6742; /* Slightly darker gold on hover */
-  box-shadow: 0 2px 8px rgba(166, 124, 82, 0.4);
+  background-color: #8c6742;
+  box-shadow: 0 0.125rem 0.5rem rgba(166, 124, 82, 0.4);
 }
 
-/* -------------------------------------------------------
- * 4. STATES (EMPTY)
- * ------------------------------------------------------- */
-
 .card-list > p {
-  /* Styling for "No products available" state */
-  grid-column: 1 / -1; /* Make it span across the entire grid */
+  grid-column: 1 / -1;
   text-align: center;
-  font-size: 1.5em;
-  color: var(--color-text-secondary);
-  padding: 50px 0;
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  padding: 3.125rem 0;
   font-style: italic;
-  /* Fade-in animation for the empty state */
   animation: fadeIn 0.6s ease-out;
 }
 
-/* -------------------------------------------------------
- * 5. ANIMATIONS (KEYFRAMES)
- * ------------------------------------------------------- */
-
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-/* (Toast component styling is assumed to be in the Toast.css file) */
-
-/* -------------------------------------------------------
- * 6. RESPONSIVENESS (MEDIA QUERIES)
- * ------------------------------------------------------- */
-
-/* --- Tablet (up to 992px) --- */
 @media (max-width: 992px) {
   .card-list {
-    /* Adjust minmax for fewer columns on slightly smaller screens */
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(15.625rem, 1fr));
+    gap: 1.25rem;
   }
 }
 
-/* --- Mobile (up to 600px) --- */
 @media (max-width: 600px) {
   .card-list {
-    /* Single column layout for small mobile screens */
     grid-template-columns: 1fr;
-    gap: 15px;
+    gap: 0.9375rem;
   }
 
   .product-image {
-    height: 200px; /* Slightly reduce image height on mobile */
+    height: 12.5rem;
   }
 
   .product-name {
-    font-size: 1.1em;
+    font-size: 1.1rem;
   }
 
   .product-price {
-    font-size: 1em;
-  }
-
-  .add-to-cart-btn {
-    padding: 10px;
+    font-size: 1rem;
   }
 }

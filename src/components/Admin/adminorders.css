@@ -1,31 +1,15 @@
-/* =======================================================
- * CSS File: adminorders.css
- * Component: AdminOrders (React Admin Order List & Management)
- * Professional Color Palette: Admin Dashboard (Cool Tones)
- * - Primary (Text/Dark Accent): #1a202c (Dark Gray/Black)
- * - Accent (Action/Button): #38a169 (Emerald Green/Success)
- * - Highlight: #4299e1 (Light Blue/Info)
- * - Background: #f7fafc (Off-White/Cool Gray)
- * - Card Background: #ffffff (White)
- * ======================================================= */
-
-/* -------------------------------------------------------
- * 1. GLOBAL STYLES
- * ------------------------------------------------------- */
 :root {
-  --color-primary: #1a202c; /* Dark text and structure */
-  --color-accent: #38a169; /* Green for main actions/success */
-  --color-highlight: #4299e1; /* Blue for highlights/info */
-  --color-background: #f7fafc; /* Light page background */
-  --color-card-bg: #ffffff; /* White card background */
-  --color-text-secondary: #718096; /* Muted gray for details */
-
-  /* Status Badge Colors */
-  --status-pending: #ffc107; /* Yellow */
-  --status-processing: #4299e1; /* Blue/Info */
-  --status-shipped: #9f7aea; /* Purple */
-  --status-delivered: #38a169; /* Green/Success */
-  --status-cancelled: #e53e3e; /* Red/Danger */
+  --color-primary: #1a202c;
+  --color-accent: #38a169;
+  --color-highlight: #4299e1;
+  --color-background: #f7fafc;
+  --color-card-bg: #ffffff;
+  --color-text-secondary: #718096;
+  --status-pending: #ffc107;
+  --status-processing: #4299e1;
+  --status-shipped: #9f7aea;
+  --status-delivered: #38a169;
+  --status-cancelled: #e53e3e;
 }
 
 *,
@@ -43,161 +27,46 @@ body {
   line-height: 1.6;
 }
 
-/* Headings */
+.orders-container {
+  max-width: 75rem;
+  margin: clamp(1rem, 5vh, 2rem) auto;
+  padding: 0 1.25rem;
+  animation: fadeIn 0.7s ease-out forwards;
+}
+
 .orders-container h1 {
-  font-size: 2.5em;
+  font-size: clamp(1.5rem, 6vw, 2.5rem);
   font-weight: 800;
   color: var(--color-primary);
-  margin-bottom: 25px;
+  margin-bottom: 1.5rem;
   text-align: center;
 }
-
-.order-card h3 {
-    color: var(--color-primary);
-    font-size: 1.2em;
-    font-weight: 700;
-    margin-bottom: 5px;
-}
-
-.order-card h4 {
-    color: var(--color-highlight);
-    font-size: 1.05em;
-    margin-top: 15px;
-    margin-bottom: 8px;
-    border-bottom: 1px dashed #e2e8f0;
-    padding-bottom: 5px;
-}
-
-/* -------------------------------------------------------
- * 2. LAYOUT STYLING (WRAPPER, CARDS, FLEX)
- * ------------------------------------------------------- */
-
-.orders-container {
-  max-width: 1200px;
-  margin: 30px auto;
-  padding: 0 20px;
-  /* Initial fade-in */
-  animation: fadeIn 0.7s ease-out;
-}
-
-/* --- Order Card (Main Display Unit) --- */
-.order-card {
-  background-color: var(--color-card-bg);
-  padding: 25px;
-  margin-bottom: 25px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e2e8f0;
-  transition: box-shadow 0.3s ease;
-}
-
-.order-card:hover {
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-}
-
-.order-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.order-date {
-    font-size: 0.9em;
-    color: var(--color-text-secondary);
-    margin-bottom: 10px;
-}
-
-/* --- Items List --- */
-.item-list {
-    list-style: none;
-    padding-left: 0;
-}
-.item-list li {
-    display: flex;
-    justify-content: space-between;
-    padding: 4px 0;
-    font-size: 0.95em;
-    border-bottom: 1px dotted #f1f1f1;
-}
-.item-list b {
-    color: var(--color-primary);
-}
-
-/* --- Customer Details (Toggle) --- */
-.customer-details {
-    margin-top: 15px;
-    padding: 10px 15px;
-    background-color: #f7f9fc;
-    border-radius: 6px;
-    border-left: 3px solid var(--color-highlight);
-    /* Slide down animation */
-    animation: slideDown 0.4s ease-out;
-}
-.customer-details p {
-    font-size: 0.9em;
-    margin-bottom: 4px;
-}
-.customer-details b {
-    font-weight: 600;
-    margin-right: 5px;
-}
-
-/* --- Status History --- */
-.history {
-    margin-top: 20px;
-}
-.history ul {
-    list-style: none;
-    padding-left: 15px;
-    border-left: 2px solid #e2e8f0;
-}
-.history li {
-    font-size: 0.9em;
-    margin-bottom: 5px;
-    position: relative;
-}
-.history li::before {
-    content: '•';
-    color: var(--color-highlight);
-    font-size: 1.2em;
-    position: absolute;
-    left: -15px;
-    top: -2px;
-}
-.history small {
-    color: var(--color-text-secondary);
-    display: block;
-}
-
-/* -------------------------------------------------------
- * 3. FILTER STRIP (FLEX LAYOUT, BADGES)
- * ------------------------------------------------------- */
 
 .filter-strip {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 30px;
-  padding: 15px;
+  gap: 0.625rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
   background-color: var(--color-card-bg);
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05);
 }
 
 .filter-btn {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 15px;
-  border: 1px solid #e2e8f0;
-  border-radius: 20px;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 0.0625rem solid #e2e8f0;
+  border-radius: 1.25rem;
   background-color: var(--color-card-bg);
   color: var(--color-text-secondary);
   cursor: pointer;
   font-weight: 500;
   transition: all 0.3s ease;
+  font-size: 0.9rem;
 }
 
 .filter-btn:hover {
@@ -213,25 +82,54 @@ body {
 
 .filter-badge {
   background-color: rgba(0, 0, 0, 0.1);
-  color: inherit;
-  padding: 2px 6px;
-  border-radius: 10px;
-  font-size: 0.8em;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.625rem;
+  font-size: 0.75rem;
   font-weight: 700;
 }
 
-.filter-btn.active .filter-badge {
-    background-color: rgba(255, 255, 255, 0.3);
+.order-card {
+  background-color: var(--color-card-bg);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.625rem rgba(0, 0, 0, 0.05);
+  border: 0.0625rem solid #e2e8f0;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-/* -------------------------------------------------------
- * 4. STATUS BADGES & BUTTONS
- * ------------------------------------------------------- */
+.order-card:hover {
+  box-shadow: 0 0.375rem 0.9375rem rgba(0, 0, 0, 0.1);
+  transform: translateY(-0.125rem);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.625rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.order-card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.order-card h4 {
+  color: var(--color-highlight);
+  font-size: 1.05rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 0.0625rem dashed #e2e8f0;
+  padding-bottom: 0.3rem;
+}
 
 .badge {
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 0.85em;
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.3125rem;
+  font-size: 0.8rem;
   font-weight: 700;
   color: var(--color-card-bg);
   text-transform: uppercase;
@@ -243,95 +141,44 @@ body {
 .badge.delivered { background-color: var(--status-delivered); }
 .badge.cancelled { background-color: var(--status-cancelled); }
 
-.toggle-btn {
-    background: none;
-    border: none;
-    color: var(--color-highlight);
-    font-weight: 600;
-    cursor: pointer;
-    text-align: left;
-    margin-bottom: 10px;
-    transition: color 0.2s ease;
-}
-.toggle-btn:hover {
-    color: #007bff;
+.customer-details {
+  margin-top: 1rem;
+  padding: 0.625rem 1rem;
+  background-color: #f7f9fc;
+  border-radius: 0.375rem;
+  border-left: 0.2rem solid var(--color-highlight);
+  animation: slideDown 0.4s ease-out;
 }
 
-/* --- Update Section (Flex Layout) --- */
 .update-section {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 2px dashed #e2e8f0;
-    align-items: center;
+  display: flex;
+  gap: 0.625rem;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 0.125rem dashed #e2e8f0;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .update-section select,
 .update-section input {
-    padding: 8px 10px;
-    border: 1px solid #cdd5e0;
-    border-radius: 4px;
-    flex-grow: 1;
+  padding: 0.5rem 0.625rem;
+  border: 0.0625rem solid #cdd5e0;
+  border-radius: 0.25rem;
+  flex: 1;
+  min-width: 9.375rem;
 }
 
 .update-section button {
-    background-color: var(--color-accent);
-    color: var(--color-card-bg);
-    padding: 8px 15px;
-    border: none;
-    border-radius: 4px;
-    font-weight: 600;
-    cursor: pointer;
-    min-width: 100px;
-    transition: background-color 0.3s ease;
+  background-color: var(--color-accent);
+  color: var(--color-card-bg);
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
-
-.update-section button:hover:not(:disabled) {
-    background-color: #2c7a4b; /* Darker green */
-}
-
-.update-section button:disabled {
-    background-color: #a0aec0;
-    cursor: not-allowed;
-}
-
-/* -------------------------------------------------------
- * 5. STATES (LOADING, ERROR, EMPTY)
- * ------------------------------------------------------- */
-
-.loading,
-.error {
-    text-align: center;
-    font-size: 1.4em;
-    padding: 50px 0;
-    border-radius: 8px;
-    margin-top: 20px;
-}
-
-.loading {
-    color: var(--color-highlight);
-    /* Pulse animation for loading text */
-    animation: pulse 1.5s infinite ease-in-out;
-}
-
-.error {
-    color: var(--status-cancelled);
-    background-color: rgba(229, 62, 62, 0.1);
-    border: 1px solid var(--status-cancelled);
-    font-weight: 600;
-}
-
-.orders-container > p:last-child:not(.loading):not(.error) {
-    text-align: center;
-    font-size: 1.1em;
-    color: var(--color-text-secondary);
-    padding: 30px;
-}
-
-/* -------------------------------------------------------
- * 6. ANIMATIONS (KEYFRAMES)
- * ------------------------------------------------------- */
 
 @keyframes fadeIn {
   from { opacity: 0; }
@@ -339,84 +186,23 @@ body {
 }
 
 @keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from { opacity: 0; transform: translateY(-0.625rem); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes pulse {
-  0% { opacity: 1; }
+  0%, 100% { opacity: 1; }
   50% { opacity: 0.6; }
-  100% { opacity: 1; }
 }
 
-/* -------------------------------------------------------
- * 7. RESPONSIVENESS (MEDIA QUERIES)
- * ------------------------------------------------------- */
-
-/* --- Tablet (up to 900px) --- */
-@media (max-width: 900px) {
-    .orders-container {
-        max-width: 100%;
-    }
-}
-
-/* --- Mobile (up to 600px) --- */
 @media (max-width: 600px) {
-    .orders-container {
-        padding: 0 10px;
-    }
-    
-    .orders-container h1 {
-        font-size: 2em;
-        margin-bottom: 20px;
-    }
-    
-    .filter-strip {
-        justify-content: flex-start;
-        padding: 10px;
-        margin-bottom: 20px;
-        /* Allow strip to scroll horizontally if needed */
-        overflow-x: auto; 
-    }
-
-    .filter-btn {
-        flex-shrink: 0; /* Prevents buttons from squishing */
-        padding: 6px 10px;
-        font-size: 0.9em;
-    }
-
-    .order-card {
-        padding: 15px;
-    }
-
-    .order-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
-    }
-    
-    .order-card h3:first-child {
-        font-size: 1.1em;
-    }
-
-    .order-date {
-        font-size: 0.85em;
-    }
-
-    .update-section {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .update-section select,
-    .update-section input,
-    .update-section button {
-        width: 100%;
-    }
+  .filter-strip {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 0.625rem;
+    scrollbar-width: none;
+  }
+  .filter-btn { flex: 0 0 auto; }
+  .update-section { flex-direction: column; align-items: stretch; }
+  .update-section select, .update-section input, .update-section button { width: 100%; }
 }
